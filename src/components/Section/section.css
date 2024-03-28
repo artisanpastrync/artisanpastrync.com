@@ -1,0 +1,7 @@
+.section > .section_background > * {
+    @apply object-cover max-h-screen w-full;
+}
+
+.section > .section_overlay > * {
+    @apply object-cover max-h-screen w-full;
+}
