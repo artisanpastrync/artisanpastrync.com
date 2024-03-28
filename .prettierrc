@@ -12,7 +12,7 @@
     "quoteProps": "as-needed",
     "requirePragma": false,
     "semi": true,
-    "singleQuote": true,
+    "singleQuote": false,
     "trailingComma": "es5",
     "useTabs": false,
     "vueIndentScriptAndStyle": false
