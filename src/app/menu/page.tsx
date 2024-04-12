@@ -3,7 +3,7 @@ export default function MenuPage() {
         <div>
             <h1>Menu</h1>
             <p>
-                Our menu changes daily. Please call or visit us for today's
+                Our menu changes daily. Please call or visit us for today&apos;s
                 selections.
             </p>
         </div>
