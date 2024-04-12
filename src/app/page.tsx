@@ -1,5 +1,5 @@
-import { Section } from "@/components/Section/Section";
-import { HTMLProps } from "react";
+import { Section } from '@/components/Section/Section';
+import { HTMLProps } from 'react';
 
 export default function Home() {
     return (
