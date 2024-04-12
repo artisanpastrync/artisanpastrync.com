@@ -1,6 +1,6 @@
-import { PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren, ReactNode } from 'react';
 
-import "./section.css";
+import './section.css';
 
 export interface SectionProps {
     background?: ReactNode;
