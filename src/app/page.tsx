@@ -1,36 +1,35 @@
-import { Section } from '@/components/Section/Section';
-import { HTMLProps } from 'react';
+// import { Button } from '@/components/Button';
+// import { Footer } from '@/components/Footer';
+// import { Navbar } from '@/components/Navbar';
+import { Section } from '@/components/Section';
 
 export default function Home() {
     return (
-        <Section
-            background={<VideoBackground />}
-            // overlay={<BackgroundOverlay />}
-        >
-            <h1 className='text-3xl font-bold text-white'>The Section</h1>
-        </Section>
-    );
-}
-
-// interface BackgroundOverlayProps {}
-
-// function BackgroundOverlay({}: BackgroundOverlayProps) {
-//     return (
-//         <div className='bg-gradient-to-t from-[#E7CAA9] w-full h-full'></div>
-//     );
-// }
-
-interface VideoBackgroundProps extends HTMLProps<HTMLVideoElement> {}
-
-function VideoBackground({
-    autoPlay = true,
-    loop = true,
-    muted = true,
-    playsInline = true,
-    ...rest
-}: VideoBackgroundProps) {
-    const props = { autoPlay, loop, muted, playsInline, ...rest };
-    return (
-        <video src='/assets/hero-video.mp4' className='h-screen' {...props} />
+        <>
+            {/* <Navbar /> */}
+            <Section className='h-screen'>
+                <Section.Background video='/assets/hero-video.mp4' />
+                <Section.Overlay className='bg-primary-900' opacity={0.5} />
+                <Section.Content className='pt-20 text-primary-100 flex flex-col align-center justify-center gap-4'>
+                    <h1 className='text-5xl font-bold'>Fine Baked Goods from Wake Forest, NC</h1>
+                    <p className='text-2xl'>Taste the difference of our family&apos;s recipes</p>
+                    <div className='flex flex-row gap-4'>
+                        {/* <Button href='/about' variant='outlined'>
+                            About Us
+                        </Button>
+                        <Button variant='solid'>Order Now!</Button> */}
+                    </div>
+                </Section.Content>
+            </Section>
+            <Section style={{ height: '1000px' }}>
+                <Section.Background color='' />
+                <Section.Overlay
+                    opacity={1}
+                    className='bg-gradient-to-tr from-primary-200 to-primary-800'
+                />
+                <Section.Content></Section.Content>
+            </Section>
+            {/* <Footer /> */}
+        </>
     );
 }
