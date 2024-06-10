@@ -80,20 +80,17 @@ export const Navbar: FC<NavbarProps> = ({
                 <div className='flex items-center flex-grow'>
                     <div className='links hidden lg:flex space-x-4'>
                         {links.map(({ label, href }) => (
-                            // links that are more similar to color palette
                             <Link href={href} key={label}>
                                 {label}
                             </Link>
                         ))}
                     </div>
                 </div>
-                {/* Logo centered in navbar */}
                 <Link href='/' className='absolute left-1/2 -translate-x-1/2'>
                     <Logo className='duration-500 transition-transform origin-top' />
                 </Link>
                 <div className='flex items-center flex-grow justify-end'>
                     <div className='hidden lg:flex space-x-4'>
-                        {/* todo =============== clean up spacing */}
                         {buttons.map(({ label, ...buttonProps }) => (
                             <Button {...buttonProps} key={label}>
                                 {label}
@@ -120,7 +117,7 @@ export const Navbar: FC<NavbarProps> = ({
             {/* on safari with low power mode, menu is briefly visible */}
             <div
                 className={cn(
-                    'menu-overlay -z-10 lg:hidden fixed inset-0 bg-primary-100 bg-opacity-90 flex transition-[opacity,transform] duration-500 ease-in-out overflow-hidden opacity-0',
+                    'menu-overlay -z-10 lg:hidden fixed inset-0 bg-primary-50 bg-opacity-90 flex transition-[opacity,transform] duration-500 ease-in-out overflow-hidden opacity-0',
                     isMenuOpen
                         ? 'transform translate-y-0 opacity-100'
                         : 'transform -translate-y-full'
