@@ -1,5 +1,5 @@
 import { Button } from '@/components/Button';
-// import { Footer } from '@/components/Footer';
+import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
 import { Section } from '@/components/Section';
 
@@ -29,7 +29,7 @@ export default function Home() {
                 />
                 <Section.Content></Section.Content>
             </Section>
-            {/* <Footer /> */}
+            <Footer />
         </>
     );
 }
