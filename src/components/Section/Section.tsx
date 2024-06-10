@@ -96,7 +96,9 @@ export interface SectionContentProps {
 
 const SectionContent: FC<SectionContentProps> = ({ className, children }) => {
     return (
-        <div className={cn`section__content relative container h-full mx-auto p-8 ${className}`}>
+        <div
+            className={cn`section__content relative container h-full mx-auto px-4 py-8 ${className}`}
+        >
             {children}
         </div>
     );
