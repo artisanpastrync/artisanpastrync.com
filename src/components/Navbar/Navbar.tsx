@@ -66,7 +66,6 @@ export const Navbar: FC<NavbarProps> = ({
     const isSolid = disableScroll || isMenuOpen || isScrolled;
 
     return (
-        // header color off on initial page load
         <header
             className={cn(
                 'navbar bg-primary-50 shadow-md',
@@ -114,14 +113,14 @@ export const Navbar: FC<NavbarProps> = ({
                 </div>
             </div>
 
-            {/* on safari with low power mode, menu is briefly visible */}
             <div
                 className={cn(
-                    'menu-overlay -z-10 lg:hidden fixed inset-0 bg-primary-50 bg-opacity-90 flex transition-[opacity,transform] duration-500 ease-in-out overflow-hidden opacity-0',
-                    isMenuOpen
-                        ? 'transform translate-y-0 opacity-100'
-                        : 'transform -translate-y-full'
+                    'menu-overlay -z-10 lg:hidden fixed inset-0 bg-primary-50 bg-opacity-90 flex transition-[opacity,transform] duration-500 ease-in-out overflow-hidden opacity-0 -translate-y-full'
                 )}
+                style={{
+                    transform: isMenuOpen ? 'translateY(0)' : 'translateY(-100%)',
+                    opacity: isMenuOpen ? 1 : 0,
+                }}
                 aria-hidden={!isMenuOpen}
             >
                 <div className='container mx-auto mt-16 px-4 pt-4 overflow-y-auto'>
