@@ -18,12 +18,13 @@ export default function RootLayout({ children }: PropsWithChildren<object>) {
     return (
 <>
         <html lang='en'>
+            <body>
             <Navbar />
             <Section className='h-screen'>
                 <Section.Background video='/assets/hero-video.mp4' />
                 <Section.Overlay className='bg-primary-900' opacity={0.5} />
                 <Section.Content className='pt-20 text-primary-100 flex flex-col align-center justify-center gap-4'>
-                   {children} 
+                    {children} 
                 </Section.Content>
             </Section>
             <Section style={{ height: '1000px' }}>
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: PropsWithChildren<object>) {
                 <Section.Content></Section.Content>
             </Section>
             <Footer />
+            </body>
             </html>
         </>
     );
