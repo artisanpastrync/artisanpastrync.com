@@ -34,3 +34,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Devenv
+.devenv*
+devenv.local.nix
+devenv*
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml
