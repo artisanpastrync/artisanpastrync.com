@@ -17,8 +17,8 @@ const defaultLinks: NavLink[] = [
 ];
 
 const defaultButtons: NavButton[] = [
-    { label: 'Sign up', variant: 'inverted' },
-    { label: 'Log in' },
+    { label: 'Sign up', variant: 'inverted', href: '/auth/login'},
+    { label: 'Log in', href: '/auth/login'},
 ];
 
 export type NavButton = Pick<ButtonProps, 'href' | 'onClick' | 'variant' | 'className'> & {
