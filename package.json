@@ -11,6 +11,8 @@
         "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
     },
     "dependencies": {
+        "@supabase/auth-helpers-nextjs": "^0.10.0",
+        "@supabase/supabase-js": "^2.43.5",
         "clsx": "^2.1.1",
         "next": "^14.2.3",
         "react": "^18.3.1",
