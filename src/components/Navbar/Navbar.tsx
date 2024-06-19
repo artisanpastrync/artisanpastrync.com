@@ -33,7 +33,7 @@ export interface NavLink {
 export interface NavbarProps {
     links?: NavLink[];
     buttons?: NavButton[];
-    disableScroll?: boolean;
+    enableScroll?: boolean;
     className?: string;
 }
 
@@ -41,7 +41,7 @@ export const Navbar: FC<NavbarProps> = ({
     className,
     buttons = defaultButtons,
     links = defaultLinks,
-    disableScroll = false,
+    enableScroll = false,
 }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -57,13 +57,13 @@ export const Navbar: FC<NavbarProps> = ({
             updateIsScrolled();
         };
 
-        !disableScroll && window.addEventListener('scroll', handleScroll);
+        enableScroll && window.addEventListener('scroll', handleScroll);
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, [disableScroll]);
+    }, [enableScroll]);
 
-    const isSolid = disableScroll || isMenuOpen || isScrolled;
+    const isSolid = !enableScroll || isMenuOpen || isScrolled;
 
     return (
         <header
@@ -72,6 +72,7 @@ export const Navbar: FC<NavbarProps> = ({
                 isSolid ? 'solid' : 'transparent',
                 isScrolled ? 'scrolled' : 'not-scrolled',
                 isMenuOpen ? 'menu-open' : 'menu-closed',
+                enableScroll ? 'fixed' : 'relative',
                 className
             )}
         >
