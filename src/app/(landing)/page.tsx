@@ -1,12 +1,9 @@
 import { Button } from '@/components/Button';
-import { Footer } from '@/components/Footer';
-import { Navbar } from '@/components/Navbar';
 import { Section } from '@/components/Section';
 
 export default function Home() {
     return (
         <>
-            <Navbar />
             <Section className='h-screen'>
                 <Section.Background video='/assets/hero-video.mp4' />
                 <Section.Overlay className='bg-primary-900' opacity={0.5} />
@@ -29,7 +26,6 @@ export default function Home() {
                 />
                 <Section.Content></Section.Content>
             </Section>
-            <Footer />
         </>
     );
 }
