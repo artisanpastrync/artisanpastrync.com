@@ -1,10 +1,8 @@
 {
     // Specifies that this is the root configuration file and stops ESLint from looking for configurations in parent folders.
     "root": true,
-
     // Specifies the parser for ESLint, which allows ESLint to understand TypeScript syntax.
     "parser": "@typescript-eslint/parser",
-
     // A list of plugins that extend the functionality of ESLint.
     "plugins": [
         "@typescript-eslint", // Provides linting rules for TypeScript.
@@ -14,7 +12,6 @@
         "jsx-a11y", // Provides accessibility rules for JSX elements.
         "import" // Provides linting of ES6 import/export syntax.
     ],
-
     // Extends a set of predefined configurations.
     "extends": [
         "eslint:recommended", // Uses recommended rules from ESLint.
@@ -30,12 +27,16 @@
         "next", // Uses the Next.js ESLint configuration.
         "next/core-web-vitals" // Uses the Next.js Core Web Vitals ESLint configuration.
     ],
-
     // Specifies custom rules and overrides default rules.
     "rules": {
         // Integrates Prettier formatting as ESLint rules and sets it to show warnings.
-        "prettier/prettier": ["warn", {}, { "usePrettierrc": true }],
-
+        "prettier/prettier": [
+            "warn",
+            {},
+            {
+                "usePrettierrc": true
+            }
+        ],
         // Disallows unused variables and sets it to show warnings instead of errors.
         "@typescript-eslint/no-unused-vars": [
             "warn",
@@ -49,16 +50,18 @@
                 "ignoreRestSiblings": true
             }
         ],
-
         // Customizes React rules.
         "react/react-in-jsx-scope": "off", // Turns off the rule that checks for React in scope, since Next.js does this automatically.
         "react/prop-types": "off", // Turns off prop-types checking, as TypeScript is used for type checking.
-
         // Customizes import/order rules for import statements.
         "import/order": [
             "warn", // Treats import order issues as errors.
             {
-                "groups": ["builtin", "external", "internal"], // Orders imports into groups.
+                "groups": [
+                    "builtin",
+                    "external",
+                    "internal"
+                ], // Orders imports into groups.
                 "newlines-between": "always", // Enforces a newline between import groups.
                 "alphabetize": {
                     "order": "asc", // Alphabetizes imports in ascending order.
@@ -66,16 +69,18 @@
                 }
             }
         ],
-
-        // Enforces Unix-style line endings.
-        "linebreak-style": ["error", "unix"],
-
+        // Disable errors for line endings.
+        "linebreak-style": "off",
         // Enforces the use of single quotes for strings.
-        "quotes": ["error", "single"],
-
+        "quotes": [
+            "error",
+            "single"
+        ],
         // Enforces the use of semicolons.
-        "semi": ["error", "always"],
-
+        "semi": [
+            "error",
+            "always"
+        ],
         // Customize accessibility (a11y) rules to be warnings instead of errors.
         "jsx-a11y/accessible-emoji": "warn",
         "jsx-a11y/alt-text": "warn",
@@ -112,7 +117,6 @@
         "jsx-a11y/scope": "warn",
         "jsx-a11y/tabindex-no-positive": "warn"
     },
-
     // Specifies global settings for the React plugin.
     "settings": {
         "react": {

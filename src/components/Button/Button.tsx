@@ -33,7 +33,7 @@ export function Button({
 }: ButtonProps) {
     const classNames = cn(
         `button button-${variant}`,
-        'font-bold py-2 px-4 shadow-lg text-center transition-colors',
+        'inline-block font-bold py-2 px-4 shadow-lg text-center transition-colors',
         variantClasses[variant],
         disabled && 'opacity-50',
         className
