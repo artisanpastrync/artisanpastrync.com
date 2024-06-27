@@ -8,17 +8,16 @@ export const Footer = () => {
         <footer className='bg-primary-950 text-primary-50'>
             <div className='container mx-auto px-4 py-8'>
                 <div className='grid grid-cols-1 md:grid-cols-4 gap-8'>
-                    {/* Description Section */}
                     <div>
-                        <h2 className='text-xl font-bold mb-4'>About Artisan Pastry</h2>
+                        <h2 className='text-xl font-bold mb-4'>About Us</h2>
                         <p>
-                            Artisan Pastry is a home bakery offering delicious handmade pastries.
-                            Our commitment to quality and freshness is our top priority. We use only
-                            the finest ingredients to ensure every bite is a delight.
+                            A women-owned, mother-daughter pastry shop in Wake Forest offering
+                            handmade cookies, cakes, and pastries. We use high-quality, seasonal,
+                            and locally sourced ingredients. Find us at local farmers&apos; markets
+                            and enjoy our authentic, delicious treats.
                         </p>
                     </div>
 
-                    {/* Newsletter Section */}
                     <div>
                         <h2 className='text-xl font-bold mb-4'>Newsletter</h2>
                         <form className='flex flex-col'>
