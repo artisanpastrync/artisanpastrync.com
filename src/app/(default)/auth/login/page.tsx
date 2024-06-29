@@ -1,5 +1,5 @@
 import { Button } from "@/components/Button";
-import { login, signup } from "../_actions/login";
+import { handleSignInWithGoogle, login, signup } from "../_actions/login";
 
 export default function LoginPage() {
   return (
@@ -14,6 +14,7 @@ export default function LoginPage() {
       </div>
       <Button formAction={login}>Log in</Button>
       <Button formAction={signup}>Sign up</Button>
+      <Button formAction={handleSignInWithGoogle}>Sign in with Google</Button>
     </form>
   )
 }
