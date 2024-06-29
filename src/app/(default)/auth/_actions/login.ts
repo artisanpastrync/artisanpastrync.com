@@ -56,10 +56,7 @@ export async function handleSignInWithGoogle(formData: FormData) {
     },
   })
 
-  if (error) {
-    redirect('/error')
+  if (data.url) {
+    redirect(data.url)
   }
-
-  revalidatePath('/', 'layout')
-  redirect('/')
 }
