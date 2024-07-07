@@ -11,7 +11,7 @@ export interface SectionBackgroundProps extends VideoHTMLAttributes<HTMLVideoEle
     style?: CSSProperties;
 }
 
-const SectionBackground: FC<SectionBackgroundProps> = ({
+export const SectionBackground: FC<SectionBackgroundProps> = ({
     image,
     video,
     color,
@@ -71,7 +71,7 @@ export interface SectionOverlayProps {
     style?: CSSProperties;
 }
 
-const SectionOverlay: FC<SectionOverlayProps> = ({
+export const SectionOverlay: FC<SectionOverlayProps> = ({
     color,
     opacity,
     gradient,
@@ -94,7 +94,7 @@ export interface SectionContentProps {
     children?: React.ReactNode;
 }
 
-const SectionContent: FC<SectionContentProps> = ({ className, children }) => {
+export const SectionContent: FC<SectionContentProps> = ({ className, children }) => {
     return (
         <div
             className={cn`section__content relative container h-full mx-auto px-4 py-8 ${className}`}
@@ -104,7 +104,7 @@ const SectionContent: FC<SectionContentProps> = ({ className, children }) => {
     );
 };
 
-interface SectionProps extends HTMLAttributes<HTMLDivElement> {
+export interface SectionProps extends HTMLAttributes<HTMLDivElement> {
     className?: string;
     style?: CSSProperties;
     children?: ReactNode;
