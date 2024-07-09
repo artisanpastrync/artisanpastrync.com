@@ -8,6 +8,7 @@ import { Logo } from '@/components/Logo';
 import { cn } from '@/lib/utils';
 
 import './navbar.css';
+import { signOut } from '@/app/(default)/login/_actions/login';
 
 const defaultLinks: NavLink[] = [
     { label: 'Home', href: '/' },
@@ -19,7 +20,10 @@ const defaultLinks: NavLink[] = [
 const defaultButtons: NavButton[] = [
     { label: 'Sign up', variant: 'inverted', href: '/login'},
     { label: 'Log in', href: '/login'},
+    { label: 'Log out', variant: 'inverted', onClick: () => {signOut}}
 ];
+
+const logoutButton: NavButton = { label: 'Log out', variant: 'inverted', onClick: () => {signOut}}
 
 export type NavButton = Pick<ButtonProps, 'href' | 'onClick' | 'variant' | 'className'> & {
     label: string;
