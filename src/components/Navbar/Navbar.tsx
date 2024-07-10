@@ -136,7 +136,8 @@ export const Navbar: FC<NavbarProps> = ({
                 <div className='container mx-auto mt-16 px-4 pt-4 overflow-y-auto'>
                     <nav className='space-y-4'>
                         <div className='links flex flex-col items-end gap-4 space'>
-                            {buttons.map(({ label, ...buttonProps }) => (
+                            {children}
+                            {/* {buttons.map(({ label, ...buttonProps }) => (
                                 <Button
                                     {...buttonProps}
                                     key={label}
@@ -145,7 +146,7 @@ export const Navbar: FC<NavbarProps> = ({
                                 >
                                     {label}
                                 </Button>
-                            ))}
+                            ))} */}
                             {links.map(({ label, href }) => (
                                 <Button
                                     href={href}

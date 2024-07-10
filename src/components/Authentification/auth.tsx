@@ -1,6 +1,18 @@
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { Button, ButtonProps } from "../Button";
+
+export type NavButton = Pick<ButtonProps, 'href' | 'onClick' | 'variant' | 'className'> & {
+    label: string;
+};
+
+const defaultButtons: NavButton[] = [
+    { label: 'Sign up', variant: 'inverted', href: '/login'},
+    { label: 'Log in', href: '/login'},
+];
+
+// const logoutButton: NavButton = { label: 'Log out', variant: 'inverted', onClick: () => {signOut}}
 
 export default async function AuthButton() {
   const supabase = createClient();
@@ -17,20 +29,32 @@ export default async function AuthButton() {
   };
 
   return user ? (
-    <div className="flex items-center gap-4">
-      Hey, {user.email}!
-      <form action={signOut}>
-        <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
-          Logout
-        </button>
-      </form>
+    <>
+    <div className='hidden lg:flex space-x-4'>
+        <form  action={signOut}>
+       <Button variant="inverted">Sign out</Button>
+       </form>
     </div>
+    <form className="lg:hidden" action={signOut}>
+        <Button variant="inverted">Sign out</Button>
+    </form>
+    </>
   ) : (
-    <Link
-      href="/login"
-      className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
-    >
-      Login
-    </Link>
-  );
+    <>
+    <div className='hidden lg:flex space-x-4'>
+    {defaultButtons.map(({ label, ...buttonProps }) => (
+        <Button {...buttonProps} key={label}>
+            {label}
+        </Button>
+    ))}
+    </div>
+    <div className="lg:hidden">
+        {defaultButtons.map(({ label, ...buttonProps }) => (
+            <Button {...buttonProps} key={label}>
+                {label}
+            </Button>
+    ))}
+    </div>
+    </>
+  )
 }
