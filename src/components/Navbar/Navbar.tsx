@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FC, useEffect, useState } from 'react';
+import { FC, ReactElement, ReactNode, useEffect, useState } from 'react';
 
 import { Button, ButtonProps } from '@/components/Button';
 import { Logo } from '@/components/Logo';
@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 
 import './navbar.css';
 import { signOut } from '@/app/(default)/login/_actions/login';
+import AuthButtons from '../Authentification/auth';
 
 const defaultLinks: NavLink[] = [
     { label: 'Home', href: '/' },
@@ -39,6 +40,7 @@ export interface NavbarProps {
     buttons?: NavButton[];
     enableScroll?: boolean;
     className?: string;
+    children?: ReactNode;
 }
 
 export const Navbar: FC<NavbarProps> = ({
@@ -46,6 +48,8 @@ export const Navbar: FC<NavbarProps> = ({
     buttons = defaultButtons,
     links = defaultLinks,
     enableScroll = false,
+    children,
+    // auth: AuthButtons,
 }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -66,9 +70,8 @@ export const Navbar: FC<NavbarProps> = ({
             window.removeEventListener('scroll', handleScroll);
         };
     }, [enableScroll]);
-
+    
     const isSolid = !enableScroll || isMenuOpen || isScrolled;
-
     return (
         <header
             className={cn(
@@ -95,11 +98,13 @@ export const Navbar: FC<NavbarProps> = ({
                 </Link>
                 <div className='flex items-center flex-grow justify-end'>
                     <div className='hidden lg:flex space-x-4'>
-                        {buttons.map(({ label, ...buttonProps }) => (
+                        {/* <AuthButtons /> */}
+                        {children}
+                        {/* {buttons.map(({ label, ...buttonProps }) => (
                             <Button {...buttonProps} key={label}>
                                 {label}
                             </Button>
-                        ))}
+                        ))} */}
                     </div>
                     <div className='lg:hidden flex'>
                         <button

@@ -43,13 +43,13 @@ export async function signup(formData: FormData) {
   redirect('/test') //change back to '/' once working
 }
 
-export async function signOut(formData: FormData) {
-  // const { error } = await supabase.auth.signOut();
+export async function signOut() {
+  const { error } = await supabase.auth.signOut();
  
-  // if (error) {
-  //   return redirect("/error");
-  // }
-  redirect('/login')
+  if (error) {
+    return redirect("/error");
+  }
+  // redirect('/login')
 }
 
 
