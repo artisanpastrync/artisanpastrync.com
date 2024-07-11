@@ -2,17 +2,16 @@ import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Button, ButtonProps } from "../Button";
+// import { checkMenuStatusClick, checkMenuStatusTab } from "../Navbar";
 
 export type NavButton = Pick<ButtonProps, 'href' | 'onClick' | 'variant' | 'className'> & {
     label: string;
 };
 
 const defaultButtons: NavButton[] = [
-    { label: 'Sign up', variant: 'inverted', href: '/login'},
+    // { label: 'Sign up', variant: 'inverted', href: '/login'},
     { label: 'Log in', href: '/login'},
 ];
-
-// const logoutButton: NavButton = { label: 'Log out', variant: 'inverted', onClick: () => {signOut}}
 
 export default async function AuthButton() {
   const supabase = createClient();
@@ -50,8 +49,13 @@ export default async function AuthButton() {
     </div>
     <div className="lg:hidden">
         {defaultButtons.map(({ label, ...buttonProps }) => (
-            <Button {...buttonProps} key={label}>
-                {label}
+            <Button    
+                {...buttonProps}
+                key={label}
+                // onClick={checkMenuStatusClick}
+                // tabIndex={1}
+                >
+                    {label}
             </Button>
     ))}
     </div>

@@ -167,3 +167,13 @@ export const Navbar: FC<NavbarProps> = ({
 };
 
 export default Navbar;
+
+// export function checkMenuStatusClick() {
+//     const [isMenuOpen, setIsMenuOpen] = useState(false)
+//     return () => setIsMenuOpen(false);
+// }
+
+// export function checkMenuStatusTab() {
+//     const [isMenuOpen] = useState(false)
+//     return isMenuOpen ? 0 : -1;
+// }
