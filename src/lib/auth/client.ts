@@ -1,7 +1,6 @@
 'use client';
 
 import { Provider } from '@supabase/supabase-js';
-import { redirect, useRouter } from 'next/navigation';
 
 import { AuthReturn } from '@/lib/auth/server';
 import { createSupabaseBrowserClient } from '@/lib/supabase/client';

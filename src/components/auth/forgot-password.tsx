@@ -32,6 +32,7 @@ export function ForgotPasswordForm() {
 
     async function onSubmit(data: ForgotPasswordSchema) {
         const formData = objectToFormData(data);
+        formData.append('callback', '/auth/callback?next=/reset');
         const result = await handleAuthRequest(formData, requestPasswordUpdate);
         console.log(result);
     }
@@ -39,7 +40,7 @@ export function ForgotPasswordForm() {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
-                <h3 className='text-xl'>Forgot Password</h3>
+                <h3 className='text-xl'>Request Password Reset</h3>
                 <FormField
                     control={form.control}
                     name='email'
@@ -53,7 +54,7 @@ export function ForgotPasswordForm() {
                         </FormItem>
                     )}
                 />
-                <Button type='submit'>Sign In</Button>
+                <Button type='submit'>Submit</Button>
             </form>
         </Form>
     );

@@ -33,7 +33,7 @@ export async function signInWithLink(formData: FormData): Promise<AuthReturn> {
 }
 
 export async function requestPasswordUpdate(formData: FormData): Promise<AuthReturn> {
-    const redirectTo = String(formData.get('callback') ?? '') || getURL('/auth/callback');
+    const redirectTo = getURL('/auth/callback?next=/reset');
 
     const email = String(formData.get('email')).trim();
 
@@ -171,6 +171,16 @@ export async function updateEmail(formData: FormData): Promise<AuthReturn> {
     //         `You will need to confirm the update by clicking the links sent to both the old and new email addresses.`
     //     );
     // }
+}
+
+export async function updatePassword(formData: FormData): Promise<AuthReturn> {
+    const password = String(formData.get('password'));
+
+    const supabase = await createSupabaseServerClient();
+
+    const result = await supabase.auth.updateUser({ password });
+
+    return objectToPojo(result);
 }
 
 export async function updateName(formData: FormData): Promise<AuthReturn> {
