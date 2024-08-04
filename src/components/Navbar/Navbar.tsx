@@ -1,13 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { FC, useEffect, useState } from 'react';
+import { FC, ReactElement, ReactNode, useEffect, useState } from 'react';
 
 import { Button, ButtonProps } from '@/components/Button';
 import { Logo } from '@/components/Logo';
 import { cn } from '@/lib/utils';
 
 import './navbar.css';
+import { signOut } from '@/app/(default)/login/_actions/login';
+import AuthButtons from '../Authentification/auth';
 
 const defaultLinks: NavLink[] = [
     { label: 'Home', href: '/' },
@@ -17,9 +19,12 @@ const defaultLinks: NavLink[] = [
 ];
 
 const defaultButtons: NavButton[] = [
-    { label: 'Sign up', variant: 'inverted' },
-    { label: 'Log in' },
+    { label: 'Sign up', variant: 'inverted', href: '/login'},
+    { label: 'Log in', href: '/login'},
+    { label: 'Log out', variant: 'inverted', onClick: () => {signOut}}
 ];
+
+const logoutButton: NavButton = { label: 'Log out', variant: 'inverted', onClick: () => {signOut}}
 
 export type NavButton = Pick<ButtonProps, 'href' | 'onClick' | 'variant' | 'className'> & {
     label: string;
@@ -35,6 +40,7 @@ export interface NavbarProps {
     buttons?: NavButton[];
     enableScroll?: boolean;
     className?: string;
+    children?: ReactNode;
 }
 
 export const Navbar: FC<NavbarProps> = ({
@@ -42,6 +48,8 @@ export const Navbar: FC<NavbarProps> = ({
     buttons = defaultButtons,
     links = defaultLinks,
     enableScroll = false,
+    children,
+    // auth: AuthButtons,
 }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -62,9 +70,8 @@ export const Navbar: FC<NavbarProps> = ({
             window.removeEventListener('scroll', handleScroll);
         };
     }, [enableScroll]);
-
+    
     const isSolid = !enableScroll || isMenuOpen || isScrolled;
-
     return (
         <header
             className={cn(
@@ -91,11 +98,13 @@ export const Navbar: FC<NavbarProps> = ({
                 </Link>
                 <div className='flex items-center flex-grow justify-end'>
                     <div className='hidden lg:flex space-x-4'>
-                        {buttons.map(({ label, ...buttonProps }) => (
+                        {/* <AuthButtons /> */}
+                        {children}
+                        {/* {buttons.map(({ label, ...buttonProps }) => (
                             <Button {...buttonProps} key={label}>
                                 {label}
                             </Button>
-                        ))}
+                        ))} */}
                     </div>
                     <div className='lg:hidden flex'>
                         <button
@@ -127,7 +136,8 @@ export const Navbar: FC<NavbarProps> = ({
                 <div className='container mx-auto mt-16 px-4 pt-4 overflow-y-auto'>
                     <nav className='space-y-4'>
                         <div className='links flex flex-col items-end gap-4 space'>
-                            {buttons.map(({ label, ...buttonProps }) => (
+                            {children}
+                            {/* {buttons.map(({ label, ...buttonProps }) => (
                                 <Button
                                     {...buttonProps}
                                     key={label}
@@ -136,7 +146,7 @@ export const Navbar: FC<NavbarProps> = ({
                                 >
                                     {label}
                                 </Button>
-                            ))}
+                            ))} */}
                             {links.map(({ label, href }) => (
                                 <Button
                                     href={href}
@@ -157,3 +167,13 @@ export const Navbar: FC<NavbarProps> = ({
 };
 
 export default Navbar;
+
+// export function checkMenuStatusClick() {
+//     const [isMenuOpen, setIsMenuOpen] = useState(false)
+//     return () => setIsMenuOpen(false);
+// }
+
+// export function checkMenuStatusTab() {
+//     const [isMenuOpen] = useState(false)
+//     return isMenuOpen ? 0 : -1;
+// }
