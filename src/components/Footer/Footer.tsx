@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
-import { Button } from '../Button';
+import { AuthButton } from '@/components/auth/auth-button';
+import { Button } from '@/components/Button';
 // import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 export const Footer = () => {
@@ -62,6 +63,7 @@ export const Footer = () => {
                     {/* Social Links Section */}
                     <div>
                         <h2 className='text-xl font-bold mb-4'>Follow Us</h2>
+                        <AuthButton />
                         <div className='flex space-x-4'>
                             <Link
                                 href='https://facebook.com'

@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { FC, useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { FC, ReactNode, useEffect, useState } from 'react';
 
 import { Button, ButtonProps } from '@/components/Button';
 import { Logo } from '@/components/Logo';
@@ -16,11 +17,6 @@ const defaultLinks: NavLink[] = [
     { label: 'Contact Us', href: '/contact' },
 ];
 
-const defaultButtons: NavButton[] = [
-    { label: 'Sign up', variant: 'inverted' },
-    { label: 'Log in' },
-];
-
 export type NavButton = Pick<ButtonProps, 'href' | 'onClick' | 'variant' | 'className'> & {
     label: string;
 };
@@ -32,19 +28,22 @@ export interface NavLink {
 
 export interface NavbarProps {
     links?: NavLink[];
-    buttons?: NavButton[];
     enableScroll?: boolean;
     className?: string;
+    serverButtons?: ReactNode;
 }
 
 export const Navbar: FC<NavbarProps> = ({
     className,
-    buttons = defaultButtons,
     links = defaultLinks,
-    enableScroll = false,
+    enableScroll,
+    serverButtons,
 }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const pathname = usePathname();
+    // by default, enable scroll on landing page only
+    enableScroll ??= pathname === '/';
 
     useEffect(() => {
         const updateIsScrolled = () => {
@@ -64,7 +63,6 @@ export const Navbar: FC<NavbarProps> = ({
     }, [enableScroll]);
 
     const isSolid = !enableScroll || isMenuOpen || isScrolled;
-
     return (
         <header
             className={cn(
@@ -90,13 +88,7 @@ export const Navbar: FC<NavbarProps> = ({
                     <Logo className='duration-500 transition-transform origin-top' />
                 </Link>
                 <div className='flex items-center flex-grow justify-end'>
-                    <div className='hidden lg:flex space-x-4'>
-                        {buttons.map(({ label, ...buttonProps }) => (
-                            <Button {...buttonProps} key={label}>
-                                {label}
-                            </Button>
-                        ))}
-                    </div>
+                    <div className='hidden lg:flex space-x-4'>{serverButtons}</div>
                     <div className='lg:hidden flex'>
                         <button
                             onClick={() => setIsMenuOpen((open) => !open)}
@@ -127,16 +119,7 @@ export const Navbar: FC<NavbarProps> = ({
                 <div className='container mx-auto mt-16 px-4 pt-4 overflow-y-auto'>
                     <nav className='space-y-4'>
                         <div className='links flex flex-col items-end gap-4 space'>
-                            {buttons.map(({ label, ...buttonProps }) => (
-                                <Button
-                                    {...buttonProps}
-                                    key={label}
-                                    onClick={() => setIsMenuOpen(false)}
-                                    tabIndex={isMenuOpen ? 0 : -1}
-                                >
-                                    {label}
-                                </Button>
-                            ))}
+                            {serverButtons}
                             {links.map(({ label, href }) => (
                                 <Button
                                     href={href}
@@ -157,3 +140,13 @@ export const Navbar: FC<NavbarProps> = ({
 };
 
 export default Navbar;
+
+// export function checkMenuStatusClick() {
+//     const [isMenuOpen, setIsMenuOpen] = useState(false)
+//     return () => setIsMenuOpen(false);
+// }
+
+// export function checkMenuStatusTab() {
+//     const [isMenuOpen] = useState(false)
+//     return isMenuOpen ? 0 : -1;
+// }
