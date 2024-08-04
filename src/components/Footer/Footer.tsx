@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
-import { Button } from '../Button';
-import AuthButton from '../Authentification/auth';
+import { AuthButton } from '@/components/auth/auth-button';
+import { Button } from '@/components/Button';
 // import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 export const Footer = () => {
