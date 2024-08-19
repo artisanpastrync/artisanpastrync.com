@@ -1,3 +1,5 @@
+import { SUPABASE_ANON_KEY, SUPABASE_URL } from '@/config/environment';
+import { createClient } from '@supabase/supabase-js';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -74,3 +76,5 @@ export function getSingleQueryParam(
         return param[getFirst ? 0 : param.length - 1];
     }
 }
+
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
