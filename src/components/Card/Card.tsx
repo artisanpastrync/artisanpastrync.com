@@ -1,5 +1,5 @@
+import { supabase } from '@/lib/utils';
 import React from 'react';
-import { createClient } from '@/utils/supabase/server';
 
 type CardProps = {
   imgSrc: string;
@@ -12,7 +12,6 @@ const Card: React.FC<CardProps> = ({ imgSrc, name, description, onAddToCart }) =
     // const supabase = createClient()
     // const { data: products, error } = await supabase.from('products').select('*')
   async function Products() {
-    const supabase = createClient();
     const { data: notes } = await supabase.from("notes").select();
 
     return <pre>{JSON.stringify(notes, null, 2)}</pre>

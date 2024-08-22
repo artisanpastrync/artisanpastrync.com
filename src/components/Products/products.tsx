@@ -1,6 +1,7 @@
 import { supabase } from "@/lib/utils"
-import Image from 'next/image'
 import { Button } from "../Button"
+import Link from "next/link"
+
 interface Product {
     id: number
     name: string
@@ -9,28 +10,18 @@ interface Product {
     // image: string
 }
 
-// export const getProduct = async (): Promise<Product[]> => {
-//     const { data: product, error } = await supabase
-//         .from('product')
-//         .select('id, name, description, price_in_cents')
 
-//     if (error) {
-//         throw error
-//     }
-
-//     return product
-// }
 export async function Products() {
 
     let { data: product, error } = await supabase
         .from('product')
-        .select('name, id, price_in_cents, image_path')
+        .select('name, id, price_in_cents, image_path, product_type')
 
 
     if (product === null) {
         return <div>No products found</div>
     }
-    console.log(product)
+
     return (
         <div>
             <ul>
@@ -38,6 +29,9 @@ export async function Products() {
                     <li key={product.id}>
                         {product.name} - ${product.price_in_cents / 100}
                     <img src={product.image_path} alt={product.name} width={100} height={100} />
+                    <Button>
+                        <Link href={`/services/cake/${product.id}/about`}>About</Link>
+                    </Button>
                     <Button>Add to Cart</Button>
                     </li>
                 ))}
