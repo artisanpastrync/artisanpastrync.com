@@ -1,41 +1,72 @@
-import { supabase } from "@/lib/utils"
-import { Button } from "../Button"
-import Link from "next/link"
+'use client'
+
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/utils";
+import { Button } from "../Button";
+import Link from "next/link";
+import useCounter from "../Cart/CartContext";
 
 interface Product {
-    id: number
-    name: string
-    price_in_cents: number
-    description: string
-    // image: string
+  id: number;
+  name: string;
+  price_in_cents: number;
+  description: string;
+  image_path: string;
 }
 
+const Products = () => {
+  const { counter, increment } = useCounter();
+  const [products, setProducts] = useState<Product[] | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-export async function Products() {
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        let { data: product, error } = await supabase
+          .from('product')
+          .select('name, id, price_in_cents, description, image_path, product_type');
 
-    let { data: product, error } = await supabase
-        .from('product')
-        .select('name, id, price_in_cents, image_path, product_type')
+        if (error) throw error;
+        setProducts(product);
+      } catch (error) {
+        setError('Failed to fetch products');
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchProducts();
+  }, []); // The empty dependency array ensures this only runs once on mount
 
-    if (product === null) {
-        return <div>No products found</div>
-    }
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-    return (
-        <div>
-            <ul>
-                {product.map((product) => (
-                    <li key={product.id}>
-                        {product.name} - ${product.price_in_cents / 100}
-                    <img src={product.image_path} alt={product.name} width={100} height={100} />
-                    <Button>
-                        <Link href={`/services/cake/${product.id}/about`}>About</Link>
-                    </Button>
-                    <Button>Add to Cart</Button>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    )
-}
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (products === null || products.length === 0) {
+    return <div>No products found</div>;
+  }
+
+  return (
+    <div>
+      <ul>
+        {products.map((product) => (
+          <li key={product.id}>
+            {product.name} - ${product.price_in_cents / 100}
+            <img src={product.image_path} alt={product.name} width={100} height={100} />
+            <Button>
+              <Link href={`/services/cake/${product.id}/about`}>About</Link>
+            </Button>
+            <Button onClick={increment}>Add to Cart</Button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default Products;

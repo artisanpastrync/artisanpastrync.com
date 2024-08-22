@@ -1,4 +1,4 @@
-import { Products } from "@/components/Products/products"
+import Products from "@/components/Products/products"
 import { supabase } from "@/lib/utils"
 import { error } from "console"
 import { GetServerSideProps } from "next"

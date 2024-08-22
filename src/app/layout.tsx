@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { PropsWithChildren } from 'react';
 import './globals.css';
+import { CounterProvider } from '@/components/Cart/CartContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -13,7 +14,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren<object>) {
     return (
         <html lang='en'>
-            <body className={inter.className}>{children}</body>
+            <body className={inter.className}>
+                <CounterProvider>
+                    {children}
+                </CounterProvider>
+            </body>
         </html>
     );
 }
