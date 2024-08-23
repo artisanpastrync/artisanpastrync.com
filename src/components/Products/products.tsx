@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/utils";
 import { Button } from "../Button";
 import Link from "next/link";
-import useCounter from "../Cart/CartContext";
+import useCounter, { useShoppingList } from "../Cart/CartContext";
 
 interface Product {
   id: number;
@@ -15,7 +15,8 @@ interface Product {
 }
 
 const Products = () => {
-  const { counter, increment } = useCounter();
+  const { increment } = useCounter();
+  const { addToList, shoppingList } = useShoppingList();
   const [products, setProducts] = useState<Product[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -53,6 +54,7 @@ const Products = () => {
 
   return (
     <div>
+        <h1>{shoppingList}</h1>
       <ul>
         {products.map((product) => (
           <li key={product.id}>
@@ -61,7 +63,8 @@ const Products = () => {
             <Button>
               <Link href={`/services/cake/${product.id}/about`}>About</Link>
             </Button>
-            <Button onClick={increment}>Add to Cart</Button>
+            <Button onClick={() => addToList(product.id)}>Add to Cart</Button>
+            {/* <Button onClick={increment}>Add to Cart</Button> */}
           </li>
         ))}
       </ul>
