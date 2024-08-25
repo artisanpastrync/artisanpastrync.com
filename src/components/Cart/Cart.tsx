@@ -9,7 +9,7 @@ export default function CartIcon() {
     const { shoppingList } = useShoppingList();
     return (
         <div style={{ position: 'relative' }}>
-        <Link href="/cart">
+        <Link href="/cart/check-out">
                 <img className='size-16' src='/assets/shopping-cart.svg' alt="Cart" />
             {/* {counter > 0 && ( */}
                 <span style={{
