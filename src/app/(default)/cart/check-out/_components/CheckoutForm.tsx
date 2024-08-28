@@ -17,9 +17,8 @@ interface ShoppingCart {
     price_in_cents: number;
     image_path: string;
 }
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string); //need to fix, doesn't recognize as String but works if you manually put in the variable
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string); //need to fix, doesn't recognize as String but works if you manually put in the variable
 
-console.log(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string)
 export function CheckoutForm({ product, clientSecret } : CheckoutFormProps) {
     const { shoppingList } = useShoppingList();
     const [products, setProducts] = useState<ShoppingCart[] | null>(null);
@@ -117,7 +116,7 @@ function Form({totalDollars}: {totalDollars: number}) {
                 disabled={stripe == null || elements == null || isLoading}
             >
                 {isLoading ? "Purchasing..." : `Purchase - ${totalDollars}`}
-                </Button>
+            </Button>
         </form>
     )
 }
