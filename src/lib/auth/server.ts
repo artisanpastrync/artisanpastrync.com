@@ -13,7 +13,7 @@ export interface AuthReturn {
 export async function signOut(_formData: FormData): Promise<AuthReturn> {
     console.log(_formData);
 
-    const supabase = await createSupabaseServerClient();
+    const supabase = createSupabaseServerClient();
 
     const result = await supabase.auth.signOut();
 
@@ -25,7 +25,7 @@ export async function signInWithLink(formData: FormData): Promise<AuthReturn> {
 
     const email = String(formData.get('email')).trim();
 
-    const supabase = await createSupabaseServerClient();
+    const supabase = createSupabaseServerClient();
 
     const result = await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo } });
 
@@ -37,7 +37,7 @@ export async function requestPasswordUpdate(formData: FormData): Promise<AuthRet
 
     const email = String(formData.get('email')).trim();
 
-    const supabase = await createSupabaseServerClient();
+    const supabase = createSupabaseServerClient();
 
     const result = await supabase.auth.resetPasswordForEmail(email, { redirectTo });
 
@@ -70,7 +70,7 @@ export async function signInWithPassword(formData: FormData): Promise<AuthReturn
     const email = String(formData.get('email')).trim();
     const password = String(formData.get('password')).trim();
 
-    const supabase = await createSupabaseServerClient();
+    const supabase = createSupabaseServerClient();
 
     const result = await supabase.auth.signInWithPassword({ email, password });
 
@@ -111,7 +111,7 @@ export async function signUp(formData: FormData): Promise<AuthReturn> {
     const email = String(formData.get('email')).trim();
     const password = String(formData.get('password')).trim();
 
-    const supabase = await createSupabaseServerClient();
+    const supabase = createSupabaseServerClient();
 
     const result = await supabase.auth.signUp({
         email,
@@ -152,7 +152,7 @@ export async function updateEmail(formData: FormData): Promise<AuthReturn> {
 
     const newEmail = String(formData.get('newEmail')).trim();
 
-    const supabase = await createSupabaseServerClient();
+    const supabase = createSupabaseServerClient();
 
     const result = await supabase.auth.updateUser({ email: newEmail }, { emailRedirectTo });
 
@@ -176,7 +176,7 @@ export async function updateEmail(formData: FormData): Promise<AuthReturn> {
 export async function updatePassword(formData: FormData): Promise<AuthReturn> {
     const password = String(formData.get('password'));
 
-    const supabase = await createSupabaseServerClient();
+    const supabase = createSupabaseServerClient();
 
     const result = await supabase.auth.updateUser({ password });
 
@@ -186,7 +186,7 @@ export async function updatePassword(formData: FormData): Promise<AuthReturn> {
 export async function updateName(formData: FormData): Promise<AuthReturn> {
     const full_name = String(formData.get('fullName')).trim();
 
-    const supabase = await createSupabaseServerClient();
+    const supabase = createSupabaseServerClient();
 
     const result = await supabase.auth.updateUser({ data: { full_name } });
 
