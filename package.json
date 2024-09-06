@@ -8,7 +8,19 @@
         "start": "next start",
         "lint": "next lint",
         "lint:fix": "next lint --fix",
-        "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
+        "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+        "stripe:listen": "stripe listen --forward-to localhost:3000/api/stripe-webhook",
+        "supabase:db:pull": "supabase db pull --linked --schema public,auth,storage",
+        "supabase:db:pull:local": "supabase db pull --local --schema public,auth,storage",
+        "supabase:db:reset": "supabase db reset",
+        "supabase:db:sync": "supabase db dump --linked --data-only -f supabase/seed.sql",
+        "supabase:gen-types": "supabase gen types --linked --lang typescript --schema public > src/database.types.ts",
+        "supabase:gen-types:local": "supabase gen types --local --lang typescript --schema public > src/database.types.ts",
+        "supabase:link": "env-cmd -f .env.local npx supabase link",
+        "supabase:restart": "supabase stop && supabase start",
+        "supabase:start": "supabase start --ignore-health-check",
+        "supabase:status": "supabase status",
+        "supabase:stop": "supabase stop"
     },
     "dependencies": {
         "@hookform/resolvers": "^3.9.0",
@@ -21,12 +33,12 @@
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",
         "lucide-react": "^0.414.0",
-        "next": "^14.2.5",
+        "next": "^14.2.7",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "react-hook-form": "^7.52.1",
         "server-only": "^0.0.1",
-        "stripe": "^16.8.0",
+        "stripe": "^16.8.0-beta.1",
         "tailwind-merge": "^2.4.0",
         "tailwindcss-animate": "^1.0.7",
         "zod": "^3.23.8"
@@ -38,6 +50,7 @@
         "@typescript-eslint/eslint-plugin": "^6.21.0",
         "@typescript-eslint/parser": "^6.21.0",
         "autoprefixer": "^10.4.18",
+        "env-cmd": "^10.1.0",
         "eslint": "^8.57.0",
         "eslint-config-next": "^14.2.3",
         "eslint-config-prettier": "^9.1.0",
@@ -49,7 +62,7 @@
         "postcss": "^8.4.35",
         "postcss-import": "^16.0.1",
         "prettier": "^3.2.5",
-        "supabase": "^1.183.5",
+        "supabase": "1.191.3",
         "tailwindcss": "^3.4.1",
         "typescript": "^5"
     }
