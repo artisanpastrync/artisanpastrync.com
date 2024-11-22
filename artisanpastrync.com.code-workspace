@@ -1,0 +1,23 @@
+{
+    "folders": [
+        {
+            "name": "Next",
+            "path": "./",
+        },
+        {
+            "name": "Supabase",
+            "path": "./supabase"
+        },
+    ],
+    "settings": {
+        "files.exclude": {
+            "**/.git": true,
+            "**/.svn": true,
+            "**/.hg": true,
+            "**/CVS": true,
+            "**/.DS_Store": true,
+            "**/Thumbs.db": true,
+            "supabase/": true,
+        }
+    }
+}

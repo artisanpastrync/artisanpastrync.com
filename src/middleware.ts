@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
-import { createSupabaseMiddlewareClient } from '@/lib/supabase/server';
+import { createSupabaseMiddlewareClient } from '@/lib/supabase/middleware';
 
 const PROTECTED_ROUTES = ['/admin'];
 

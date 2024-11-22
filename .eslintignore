@@ -2,3 +2,5 @@ node_modules/
 .next/
 out/
 dist/
+database.types.ts
+src/components/ui

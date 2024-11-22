@@ -1,0 +1,8 @@
+https://www.pedroalonso.net/blog/stripe-checkout-nextjs/#11-creating-a-checkout-session
+For this integration to work we need to:
+
+1)    Create a Stripe Checkout session from our Next.js API route
+2)    Redirect the user to Stripe with the session ID created
+3)    Handle successful payments by redirecting the user back to our website’s success URL
+4)    Handle failed payments by redirecting the user back to our website’s cancel URL
+

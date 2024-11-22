@@ -1,15 +1,14 @@
-'use server';
-
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
-import { NextRequest, NextResponse } from 'next/server';
 
 import { SUPABASE_ANON_KEY, SUPABASE_URL } from '@/config/environment';
+import type { Database } from '@/database.types';
 
-export async function createSupabaseServerClient() {
+/** Use this for dynamic server-side rendering. Has user, uses RLS */
+export function createSupabaseServerClient() {
     const cookieStore = cookies();
 
-    return createServerClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    return createServerClient<Database>(SUPABASE_URL, SUPABASE_ANON_KEY, {
         cookies: {
             getAll() {
                 return cookieStore.getAll();
@@ -29,34 +28,12 @@ export async function createSupabaseServerClient() {
     });
 }
 
-export async function createSupabaseMiddlewareClient(req: NextRequest, res: NextResponse) {
-    return createServerClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-        cookies: {
-            getAll() {
-                return req.cookies.getAll();
-            },
-            setAll(cookiesToSet) {
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                cookiesToSet.forEach(({ name, value, options }) => req.cookies.set(name, value));
-                res = NextResponse.next({
-                    request: req,
-                });
-                cookiesToSet.forEach(({ name, value, options }) =>
-                    res?.cookies.set(name, value, options)
-                );
-            },
-        },
-    });
-}
-
 export const getSupabaseSessionServer = async () =>
-    (await createSupabaseServerClient()).auth
-        .getSession()
-        .then((response) => response.data.session)
-        .catch((_error) => null);
+    createSupabaseServerClient()
+        .auth.getSession()
+        .then((response) => response.data.session);
 
 export const getSupabaseUserServer = async () =>
-    (await createSupabaseServerClient()).auth
-        .getUser()
-        .then((response) => response.data.user)
-        .catch((_error) => null);
+    createSupabaseServerClient()
+        .auth.getUser()
+        .then((response) => response.data.user);

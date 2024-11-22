@@ -15,7 +15,7 @@ export async function GET(request: Request) {
 
     if (!code) return NextResponse.redirect(`${origin}/login?next=${next}&error=Missing auth code`);
 
-    const supabase = await createSupabaseServerClient();
+    const supabase = createSupabaseServerClient();
 
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 

@@ -5,9 +5,11 @@ import { Session, User } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 
 import { SUPABASE_ANON_KEY, SUPABASE_URL } from '@/config/environment';
+import type { Database } from '@/database.types';
 
+/** Use this for client components only, No SSR. Has user, uses RLS */
 export function createSupabaseBrowserClient() {
-    return createBrowserClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    return createBrowserClient<Database>(SUPABASE_URL, SUPABASE_ANON_KEY);
 }
 
 export function useSupabaseUser() {

@@ -9,6 +9,7 @@ import { Logo } from '@/components/Logo';
 import { cn } from '@/lib/utils';
 
 import './navbar.css';
+import CartIcon from '../Cart/Cart';
 
 const defaultLinks: NavLink[] = [
     { label: 'Home', href: '/' },
@@ -20,6 +21,7 @@ const defaultLinks: NavLink[] = [
 export type NavButton = Pick<ButtonProps, 'href' | 'onClick' | 'variant' | 'className'> & {
     label: string;
 };
+
 
 export interface NavLink {
     label: string;
@@ -88,6 +90,7 @@ export const Navbar: FC<NavbarProps> = ({
                     <Logo className='duration-500 transition-transform origin-top' />
                 </Link>
                 <div className='flex items-center flex-grow justify-end'>
+                    <CartIcon />
                     <div className='hidden lg:flex space-x-4'>{serverButtons}</div>
                     <div className='lg:hidden flex'>
                         <button
