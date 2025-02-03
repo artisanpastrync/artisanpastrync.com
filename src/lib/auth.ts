@@ -25,9 +25,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     // trustHost: process.env.NODE_ENV === 'production',
     providers,
     callbacks: {
-        async jwt(params) {
-            return params.token;
-        },
         async session({ session }) {
             if (!session.user || !session.user.email) return session;
             // Find customer associated with user's email address
@@ -47,3 +44,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
     },
 });
+
+export const getUser = async () => (await auth())?.user;

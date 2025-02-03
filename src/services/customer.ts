@@ -1,6 +1,6 @@
 import Stripe from 'stripe';
 
-import { auth } from '@/lib/auth';
+import { getUser } from '@/lib/auth';
 import { stripe } from '@/lib/stripe/server';
 
 export async function getCustomerByEmail(email: string): Promise<Stripe.Customer> {
@@ -26,9 +26,9 @@ async function getStripeCustomerByEmail(email: string): Promise<Stripe.Customer 
 }
 
 export async function getUserStripeCustomer(): Promise<Stripe.Customer | undefined> {
-    const session = await auth();
+    const user = await getUser();
 
-    const email = session?.user?.email;
+    const email = user?.email;
 
     if (!email) return undefined;
 
@@ -38,9 +38,9 @@ export async function getUserStripeCustomer(): Promise<Stripe.Customer | undefin
 }
 
 export async function getUserStripeCustomerId(): Promise<string | undefined> {
-    const session = await auth();
+    const user = await getUser();
 
-    const customerId = session?.user?.stripeCustomerId;
+    const customerId = user?.stripeCustomerId;
 
     return customerId;
 }

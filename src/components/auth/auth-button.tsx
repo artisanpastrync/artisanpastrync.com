@@ -1,5 +1,5 @@
 import { Button } from '@/components/Button';
-import { auth, signOut } from '@/lib/auth';
+import { getUser, signOut } from '@/lib/auth';
 
 async function signOutAction() {
     'use server';
@@ -7,9 +7,9 @@ async function signOutAction() {
 }
 
 export async function AuthButton() {
-    const session = await auth();
+    const user = await getUser();
 
-    if (!session) return <Button href='/login'>Sign in</Button>;
+    if (!user) return <Button href='/login'>Sign in</Button>;
 
     return (
         <form action={signOutAction}>

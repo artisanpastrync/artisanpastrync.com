@@ -8,10 +8,10 @@ const NEXT_COOKIE = 'nextPath';
 
 export default auth(async function middleware(request, _context) {
     const response = NextResponse.next({ request });
-    const session = request.auth;
+    const user = request.auth?.user;
     const { pathname, searchParams } = request.nextUrl;
 
-    if (!session && PROTECTED_ROUTES.some((route) => pathname.startsWith(route))) {
+    if (!user && PROTECTED_ROUTES.some((route) => pathname.startsWith(route))) {
         const nextParams = searchParams.toString();
 
         const nextPath = pathname + (nextParams ? `?${nextParams}` : '');
@@ -31,7 +31,7 @@ export default auth(async function middleware(request, _context) {
 
     // Redirect to next path and delete cookie if authenticated
     const nextPath = request.cookies.get(NEXT_COOKIE)?.value;
-    if (session && nextPath) {
+    if (user && nextPath) {
         const nextUrl = new URL(nextPath, request.url);
         const nextResponse = NextResponse.redirect(nextUrl);
         nextResponse.cookies.delete(NEXT_COOKIE);

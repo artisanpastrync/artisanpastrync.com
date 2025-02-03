@@ -1,13 +1,11 @@
 import { redirect } from 'next/navigation';
 
-import { auth } from '@/lib/auth';
+import { getUser } from '@/lib/auth';
 
 export default async function ProtectedPage() {
-    const session = await auth();
+    const user = await getUser();
 
-    if (!session) {
-        return redirect('/login');
-    }
+    if (!user) return redirect('/login');
 
     return (
         <div className='flex-1 w-full flex flex-col gap-20 items-center'>
