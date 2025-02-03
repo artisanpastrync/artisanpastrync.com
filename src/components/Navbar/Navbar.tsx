@@ -56,6 +56,7 @@ export const Navbar: FC<NavbarProps> = ({
             updateIsScrolled();
         };
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         enableScroll && window.addEventListener('scroll', handleScroll);
         return () => {
             window.removeEventListener('scroll', handleScroll);
@@ -67,7 +68,7 @@ export const Navbar: FC<NavbarProps> = ({
         <header
             className={cn(
                 'navbar bg-primary-50 shadow-md',
-                isSolid ? 'solid' : 'transparent',
+                isSolid ? 'solid' : 'transparent bg-transparent shadow-none',
                 isScrolled ? 'scrolled' : 'not-scrolled',
                 isMenuOpen ? 'menu-open' : 'menu-closed',
                 enableScroll ? 'fixed' : 'relative',
@@ -75,7 +76,7 @@ export const Navbar: FC<NavbarProps> = ({
             )}
         >
             <div className='h-full container mx-auto px-4 py-4 flex justify-between items-center'>
-                <div className='flex items-center flex-grow'>
+                <div className='flex items-center grow'>
                     <div className='links hidden lg:flex space-x-4'>
                         {links.map(({ label, href }) => (
                             <Link href={href} key={label}>
@@ -87,7 +88,7 @@ export const Navbar: FC<NavbarProps> = ({
                 <Link href='/' className='absolute left-1/2 -translate-x-1/2'>
                     <Logo className='duration-500 transition-transform origin-top' />
                 </Link>
-                <div className='flex items-center flex-grow justify-end'>
+                <div className='flex items-center grow justify-end'>
                     <div className='hidden lg:flex space-x-4'>{serverButtons}</div>
                     <div className='lg:hidden flex'>
                         <button
@@ -108,7 +109,7 @@ export const Navbar: FC<NavbarProps> = ({
 
             <div
                 className={cn(
-                    'menu-overlay -z-10 lg:hidden fixed inset-0 bg-primary-50 bg-opacity-90 flex transition-[opacity,transform] duration-500 ease-in-out overflow-hidden opacity-0 -translate-y-full'
+                    'menu-overlay -z-10 lg:hidden fixed inset-0 bg-primary-50 bg-opacity-90 flex transition-[opacity,transform] duration-500 ease-in-out overflow-hidden opacity-0'
                 )}
                 style={{
                     transform: isMenuOpen ? 'translateY(0)' : 'translateY(-100%)',

@@ -7,10 +7,6 @@
     transition-timing-function: ease-in-out;
 }
 
-.navbar.transparent {
-    @apply bg-transparent shadow-none;
-}
-
 .navbar.transparent img.logo {
     /* https://codepen.io/sosuke/pen/Pjoqqp */
     filter: invert(1);
@@ -22,21 +18,21 @@
 }
 
 .navbar .links a {
-    @apply text-primary-900;
+    color: var(--color-primary-900);
     transition-property: color;
     transition-duration: 500ms;
 }
 
 .navbar .links a:hover {
-    @apply text-primary-700;
+    color: var(--color-primary-700);
 }
 
 .transparent .links a {
-    @apply text-primary-100;
+    color: var(--color-primary-100);
 }
 
 .transparent .links a:hover {
-    @apply text-primary-300;
+    color: var(--color-primary-300);
 }
 
 .navbar .hamburger {
@@ -50,7 +46,7 @@
     cursor: pointer;
 }
 .navbar .hamburger .bar {
-    @apply bg-primary-950;
+    background-color: var(--color-primary-950);
     width: 100%;
     height: 3px;
     transition:
@@ -59,7 +55,7 @@
         opacity 0.3s ease;
 }
 .navbar.transparent .hamburger .bar {
-    @apply bg-white;
+    background-color: white;
 }
 
 .navbar .hamburger.open .bar:nth-child(1) {
