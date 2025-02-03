@@ -62,6 +62,7 @@ export function objectToPojo<T extends Record<string, any>>(obj: T): T {
 
 // https://nextjs.org/docs/app/api-reference/file-conventions/page
 export type SearchParams = { [key: string]: string | string[] | undefined };
+export type AsyncSearchParams = Promise<SearchParams>;
 
 export function getSingleQueryParam(
     searchParams: SearchParams,

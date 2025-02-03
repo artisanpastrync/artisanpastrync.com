@@ -28,11 +28,6 @@ const config = typescriptEslint.config(
     },
     prettier,
     {
-        settings: {
-            tailwindcss: {
-                callees: ['classnames', 'clsx', 'ctl', 'cn', 'cva'],
-            },
-        },
         rules: {
             '@typescript-eslint/no-empty-object-type': 'warn',
             '@typescript-eslint/no-unused-vars': [
