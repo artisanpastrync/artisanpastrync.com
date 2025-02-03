@@ -1,6 +1,6 @@
-import { getSupabaseUserServer } from '@/lib/supabase/server';
+import { auth } from '@/lib/auth';
 
 export default async function AdminPage() {
-    const user = await getSupabaseUserServer();
-    return <div>{JSON.stringify(user)}</div>;
+    const session = await auth();
+    return <div>{JSON.stringify(session)}</div>;
 }

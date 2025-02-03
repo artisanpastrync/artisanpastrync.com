@@ -1,41 +1,25 @@
-'use client';
 import { Button, ButtonProps } from '@/components/Button';
 import { GoogleIcon } from '@/components/icons';
-import { createSupabaseBrowserClient } from '@/lib/supabase/client';
+import { signIn } from '@/lib/auth';
 
-export const getRedirectToUrl = () => {
-    'use client';
-    const { origin, search } = window.location;
-    const searchParams = new URLSearchParams(search);
-    const nextPath = encodeURIComponent(searchParams.get('next') || '');
-    const redirectTo = `${origin}/auth/callback${nextPath ? `?next=${nextPath}` : ''}`;
-    return redirectTo;
-};
-
-export async function signInWithGoogle(redirectTo: string) {
-    const supabase = createSupabaseBrowserClient();
-    const result = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: { redirectTo },
-    });
-    return result;
+async function googleSignInAction(formData: FormData) {
+    'use server';
+    const redirectTo = formData.get('redirectTo') as string;
+    await signIn('google', { redirectTo });
 }
 
 export interface GoogleLoginButtonProps extends Omit<ButtonProps, 'children'> {
-    onError?: (error: unknown) => Promise<void>;
+    redirectTo?: string;
 }
 
-export function GoogleLoginButton({ onError, ...props }: GoogleLoginButtonProps) {
-    const handleLogin = async () => {
-        const redirectTo = getRedirectToUrl();
-        const { error } = await signInWithGoogle(redirectTo);
-        if (error) return onError?.(error);
-    };
-
+export function GoogleLoginButton({ redirectTo = '/', ...props }: GoogleLoginButtonProps) {
     return (
-        <Button onClick={handleLogin} className='flex flex-row gap-2' {...props}>
-            <GoogleIcon className='fill-primary-900' />
-            Continue with Google
-        </Button>
+        <form action={googleSignInAction}>
+            <input name='redirectTo' value={redirectTo} readOnly hidden />
+            <Button type='submit' className='flex flex-row gap-2' {...props}>
+                <GoogleIcon className='fill-primary-900' />
+                Continue with Google
+            </Button>
+        </form>
     );
 }

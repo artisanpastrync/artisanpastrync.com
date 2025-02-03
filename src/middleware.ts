@@ -1,36 +1,45 @@
-import { NextResponse, type NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 
-import { createSupabaseMiddlewareClient } from '@/lib/supabase/server';
+import { auth } from '@/lib/auth';
 
 const PROTECTED_ROUTES = ['/admin'];
 
-export default async function middleware(request: NextRequest) {
+const NEXT_COOKIE = 'nextPath';
+
+export default auth(async function middleware(request, _context) {
     const response = NextResponse.next({ request });
+    const session = request.auth;
     const { pathname, searchParams } = request.nextUrl;
 
-    const supabase = await createSupabaseMiddlewareClient(request, response);
-    // refreshing the auth token
-    const user = await supabase.auth.getUser().then((res) => res.data?.user);
-
-    if (!user && PROTECTED_ROUTES.some((route) => pathname.startsWith(route))) {
-        // const nextPath = encodeURIComponent(pathname + '?' + searchParams.toString());
+    if (!session && PROTECTED_ROUTES.some((route) => pathname.startsWith(route))) {
         const nextParams = searchParams.toString();
-        // append ?{nextParams} if it exists
+
         const nextPath = pathname + (nextParams ? `?${nextParams}` : '');
-        // append nextPath if it exists
-        const loginUrl = new URL('/login' + (nextPath ? `?next=${nextPath}` : ''), request.url);
-        // nextPath handled by auth callback redirectTo
-        return NextResponse.redirect(loginUrl);
+
+        const loginUrl = new URL('/login', request.url);
+
+        const redirectResponse = NextResponse.redirect(loginUrl);
+
+        redirectResponse.cookies.set(NEXT_COOKIE, nextPath, {
+            path: '/',
+            secure: process.env.NODE_ENV === 'production',
+            httpOnly: true,
+        });
+
+        return redirectResponse;
     }
 
-    // Not necessary. Handled by the signin callbacks.
-    // const nextPath = searchParams.get('next');
-    // if (user && nextPath) {
-    //     return NextResponse.redirect(new URL(decodeURIComponent(nextPath), request.url));
-    // }
+    // Redirect to next path and delete cookie if authenticated
+    const nextPath = request.cookies.get(NEXT_COOKIE)?.value;
+    if (session && nextPath) {
+        const nextUrl = new URL(nextPath, request.url);
+        const nextResponse = NextResponse.redirect(nextUrl);
+        nextResponse.cookies.delete(NEXT_COOKIE);
+        return nextResponse;
+    }
 
     return response;
-}
+});
 
 export const config = {
     matcher: [

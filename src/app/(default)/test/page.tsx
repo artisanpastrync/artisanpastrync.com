@@ -1,11 +1,11 @@
 import { redirect } from 'next/navigation';
 
-import { getSupabaseUserServer } from '@/lib/supabase/server';
+import { auth } from '@/lib/auth';
 
 export default async function ProtectedPage() {
-    const user = await getSupabaseUserServer();
+    const session = await auth();
 
-    if (!user) {
+    if (!session) {
         return redirect('/login');
     }
 

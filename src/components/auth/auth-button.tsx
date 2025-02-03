@@ -1,16 +1,18 @@
-'use server';
-
 import { Button } from '@/components/Button';
-import { signOut } from '@/lib/auth/server';
-import { getSupabaseUserServer } from '@/lib/supabase/server';
+import { auth, signOut } from '@/lib/auth';
+
+async function signOutAction() {
+    'use server';
+    await signOut();
+}
 
 export async function AuthButton() {
-    const user = await getSupabaseUserServer();
+    const session = await auth();
 
-    if (!user) return <Button href='/login'>Sign in</Button>;
+    if (!session) return <Button href='/login'>Sign in</Button>;
 
     return (
-        <form action={signOut}>
+        <form action={signOutAction}>
             <Button variant='inverted'>Sign Out</Button>
         </form>
     );
