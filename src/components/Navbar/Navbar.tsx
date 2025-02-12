@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FC, ReactNode, useEffect, useState } from 'react';
 
+import { AuthButton } from '@/components/auth/auth-button';
+import { ThemeToggle } from '@/components/shared/theme-toggle';
 import { Button, ButtonProps } from '@/components/Button';
 import { Logo } from '@/components/Logo';
 import { cn } from '@/lib/utils';
@@ -13,8 +15,8 @@ import './navbar.css';
 const defaultLinks: NavLink[] = [
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
-    { label: 'Services', href: '/services' },
-    { label: 'Contact Us', href: '/contact' },
+    { label: 'Products', href: '/products' },
+    // { label: 'Contact Us', href: '/contact' },
 ];
 
 export type NavButton = Pick<ButtonProps, 'href' | 'onClick' | 'variant' | 'className'> & {
@@ -33,12 +35,7 @@ export interface NavbarProps {
     serverButtons?: ReactNode;
 }
 
-export const Navbar: FC<NavbarProps> = ({
-    className,
-    links = defaultLinks,
-    enableScroll,
-    serverButtons,
-}) => {
+export const Navbar: FC<NavbarProps> = ({ className, links = defaultLinks, enableScroll }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const pathname = usePathname();
@@ -89,7 +86,10 @@ export const Navbar: FC<NavbarProps> = ({
                     <Logo className='duration-500 transition-transform origin-top' />
                 </Link>
                 <div className='flex items-center grow justify-end'>
-                    <div className='hidden lg:flex space-x-4'>{serverButtons}</div>
+                    <div className='hidden lg:flex space-x-4'>
+                        <ThemeToggle />
+                        <AuthButton />
+                    </div>
                     <div className='lg:hidden flex'>
                         <button
                             onClick={() => setIsMenuOpen((open) => !open)}
@@ -120,7 +120,7 @@ export const Navbar: FC<NavbarProps> = ({
                 <div className='container mx-auto mt-16 px-4 pt-4 overflow-y-auto'>
                     <nav className='space-y-4'>
                         <div className='links flex flex-col items-end gap-4 space'>
-                            {serverButtons}
+                            <AuthButton />
                             {links.map(({ label, href }) => (
                                 <Button
                                     href={href}

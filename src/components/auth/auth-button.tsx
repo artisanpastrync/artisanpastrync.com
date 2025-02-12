@@ -1,19 +1,19 @@
+'use client';
+
+import { signOut, useSession } from 'next-auth/react';
+
 import { Button } from '@/components/Button';
-import { getUser, signOut } from '@/lib/auth';
 
-async function signOutAction() {
-    'use server';
-    await signOut();
-}
+export function AuthButton() {
+    const { data: session, status } = useSession();
 
-export async function AuthButton() {
-    const user = await getUser();
+    if (status === 'loading') return <Button disabled>Sign in</Button>;
 
-    if (!user) return <Button href='/login'>Sign in</Button>;
+    if (!session?.user) return <Button href='/login'>Sign in</Button>;
 
     return (
-        <form action={signOutAction}>
-            <Button variant='inverted'>Sign Out</Button>
-        </form>
+        <Button variant='inverted' onClick={signOut}>
+            Sign Out
+        </Button>
     );
 }

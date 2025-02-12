@@ -16,7 +16,7 @@ export default function RootLayout({ children }: PropsWithChildren<object>) {
     return (
         <html lang='en'>
             <body className={inter.className}>
-                <SessionProvider refetchInterval={0}>{children}</SessionProvider>
+                <SessionProvider>{children}</SessionProvider>
             </body>
         </html>
     );
