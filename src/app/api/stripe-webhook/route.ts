@@ -1,7 +1,7 @@
 import { headers } from 'next/headers';
 import Stripe from 'stripe';
 
-import { STRIPE_WEBHOOK_SECRET } from '@/config/environment';
+import { STRIPE_WEBHOOK_SECRET } from '@/constants/environment';
 import { stripe } from '@/lib/stripe/server';
 import { revalidatePath } from 'next/cache';
 

@@ -1,6 +1,6 @@
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 
-import { STRIPE_PUBLISHABLE_KEY } from '@/config/environment';
+import { STRIPE_PUBLISHABLE_KEY } from '@/constants/environment';
 
 let stripePromise: Promise<Stripe | null>;
 
