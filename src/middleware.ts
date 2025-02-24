@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { auth } from '@/lib/auth';
 
-const PROTECTED_ROUTES = ['/admin', '/checkout'];
+const PROTECTED_ROUTES = ['/admin', '/checkout', '/profile'];
 
 const NEXT_COOKIE = 'nextPath';
 

@@ -1,9 +1,11 @@
+import { revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import Stripe from 'stripe';
 
 import { STRIPE_WEBHOOK_SECRET } from '@/constants/environment';
 import { stripe } from '@/lib/stripe/server';
-import { revalidatePath } from 'next/cache';
+import { getCustomerById } from '@/services/customer';
+import { TAGS } from '@/constants/cache-tags';
 
 const success = new Response(null, { status: 200 });
 
@@ -27,16 +29,15 @@ export async function POST(req: Request) {
     switch (event.type) {
         case 'checkout.session.completed': {
             const session = event.data.object;
-            if (!session.customer) throw new Error('No customer associated with session!');
-            const { line_items } = await stripe.checkout.sessions.retrieve(session.id, {
+            const customerId = session.customer as string;
+            if (!customerId) throw new Error('No customer associated with session!');
+
+            const checkout = await stripe.checkout.sessions.retrieve(session.id, {
                 expand: ['line_items'],
             });
+            const _customer = await getCustomerById(customerId);
 
-            console.log(line_items); // todo: email customer
-
-            // cannot clear customer cart if using cookies
-            // const customer = await getCustomerById(session.customer as string);
-            // await clearCustomerCart(customer);
+            console.log(checkout.line_items); // todo: email customer
 
             return success;
         }
@@ -46,7 +47,7 @@ export async function POST(req: Request) {
         case 'price.created':
         case 'price.updated':
         case 'price.deleted': {
-            revalidatePath('/products');
+            revalidateTag(TAGS.products);
             return success;
         }
         default: {

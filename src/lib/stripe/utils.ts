@@ -1,3 +1,5 @@
+import Stripe from 'stripe';
+
 // https://github.com/vercel/next.js/blob/canary/examples/with-stripe-typescript/utils/stripe-helpers.ts
 export function formatStripeAmountForDisplay(
     amount?: number | null,

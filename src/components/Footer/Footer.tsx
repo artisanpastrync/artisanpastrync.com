@@ -1,7 +1,8 @@
 import Link from 'next/link';
 
 import { AuthButton } from '@/components/auth/auth-button';
-import { Button } from '@/components/Button';
+import { LINKS } from '@/constants/navigation';
+import { Button } from '@/components/ui/button';
 // import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 export const Footer = () => {
@@ -27,7 +28,11 @@ export const Footer = () => {
                                 placeholder='Your email'
                                 className='px-4 py-2 mb-2 bg-primary-900 text-primary-50 rounded-md placeholder:text-primary-400'
                             />
-                            <Button type='submit' variant='solid' className='px-4 py-2 rounded-md'>
+                            <Button
+                                type='submit'
+                                variant='default'
+                                className='px-4 py-2 rounded-md'
+                            >
                                 Subscribe
                             </Button>
                         </form>
@@ -37,26 +42,13 @@ export const Footer = () => {
                     <div>
                         <h2 className='text-xl font-bold mb-4'>Quick Links</h2>
                         <ul className='space-y-2'>
-                            <li>
-                                <Link href='/about' className='hover:underline'>
-                                    About Us
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href='/services' className='hover:underline'>
-                                    Services
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href='/contact' className='hover:underline'>
-                                    Contact
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href='/faq' className='hover:underline'>
-                                    FAQ
-                                </Link>
-                            </li>
+                            {LINKS.map(({ href, label }, index) => (
+                                <li key={index}>
+                                    <Button asChild variant='ghost'>
+                                        <Link href={href}>{label}</Link>
+                                    </Button>
+                                </li>
+                            ))}
                         </ul>
                     </div>
 
