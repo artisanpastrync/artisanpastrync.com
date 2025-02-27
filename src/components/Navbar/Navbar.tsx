@@ -5,18 +5,28 @@ import { usePathname } from 'next/navigation';
 import { FC, ReactNode, useEffect, useState } from 'react';
 
 import { AuthButton } from '@/components/auth/auth-button';
-import { Logo } from '@/components/Logo';
 import { ThemeToggle } from '@/components/shared/theme-toggle';
-import { Button, ButtonProps } from '@/components/ui/button';
+import { Button, ButtonProps } from '@/components/Button';
+import { Logo } from '@/components/Logo';
 import { cn } from '@/lib/utils';
 
-import { LINKS, NavLink } from '@/constants/navigation';
-import { CartView } from '../cart/cart-view';
 import './navbar.css';
 
-export type NavButton = Pick<ButtonProps, 'onClick' | 'variant' | 'className'> & {
+const defaultLinks: NavLink[] = [
+    { label: 'Home', href: '/' },
+    { label: 'About', href: '/about' },
+    { label: 'Products', href: '/products' },
+    // { label: 'Contact Us', href: '/contact' },
+];
+
+export type NavButton = Pick<ButtonProps, 'href' | 'onClick' | 'variant' | 'className'> & {
     label: string;
 };
+
+export interface NavLink {
+    label: string;
+    href: string;
+}
 
 export interface NavbarProps {
     links?: NavLink[];
@@ -25,7 +35,7 @@ export interface NavbarProps {
     serverButtons?: ReactNode;
 }
 
-export const Navbar: FC<NavbarProps> = ({ className, links = LINKS, enableScroll }) => {
+export const Navbar: FC<NavbarProps> = ({ className, links = defaultLinks, enableScroll }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const pathname = usePathname();
@@ -54,7 +64,7 @@ export const Navbar: FC<NavbarProps> = ({ className, links = LINKS, enableScroll
     return (
         <header
             className={cn(
-                'navbar group bg-primary-50 shadow-md',
+                'navbar bg-primary-50 shadow-md',
                 isSolid ? 'solid' : 'transparent bg-transparent shadow-none',
                 isScrolled ? 'scrolled' : 'not-scrolled',
                 isMenuOpen ? 'menu-open' : 'menu-closed',
@@ -65,18 +75,10 @@ export const Navbar: FC<NavbarProps> = ({ className, links = LINKS, enableScroll
             <div className='h-full container mx-auto px-4 py-4 flex justify-between items-center'>
                 <div className='flex items-center grow'>
                     <div className='links hidden lg:flex space-x-4'>
-                        {links.map(({ label, href, icon }) => (
-                            <Button
-                                variant='default'
-                                asChild
-                                className='text-base text-primary-900 bg-transparent hover:text-primary-700 transition-colors duration-500 group-[.transparent]:text-primary-100 group-[.transparent]:hover:text-primary-300 gap-2'
-                                key={href}
-                            >
-                                <Link href={href}>
-                                    {icon}
-                                    {label}
-                                </Link>
-                            </Button>
+                        {links.map(({ label, href }) => (
+                            <Link href={href} key={label}>
+                                {label}
+                            </Link>
                         ))}
                     </div>
                 </div>
@@ -85,15 +87,8 @@ export const Navbar: FC<NavbarProps> = ({ className, links = LINKS, enableScroll
                 </Link>
                 <div className='flex items-center grow justify-end'>
                     <div className='hidden lg:flex space-x-4'>
-                        <ThemeToggle
-                            variant='default'
-                            className='text-primary-900 bg-transparent hover:text-primary-700 transition-colors group-[.transparent]:text-primary-100 group-[.transparent]:hover:text-primary-300'
-                        />
-                        <AuthButton
-                            variant='default'
-                            className='text-primary-900 bg-transparent hover:text-primary-700 transition-colors duration-500 group-[.transparent]:text-primary-100 group-[.transparent]:hover:text-primary-300 gap-2'
-                        />
-                        <CartView />
+                        <ThemeToggle />
+                        <AuthButton />
                     </div>
                     <div className='lg:hidden flex'>
                         <button
@@ -125,16 +120,16 @@ export const Navbar: FC<NavbarProps> = ({ className, links = LINKS, enableScroll
                 <div className='container mx-auto mt-16 px-4 pt-4 overflow-y-auto'>
                     <nav className='space-y-4'>
                         <div className='links flex flex-col items-end gap-4 space'>
-                            <AuthButton variant='outline' />
+                            <AuthButton />
                             {links.map(({ label, href }) => (
                                 <Button
+                                    href={href}
                                     key={label}
                                     onClick={() => setIsMenuOpen(false)}
-                                    variant='link'
+                                    variant='text'
                                     tabIndex={isMenuOpen ? 0 : -1}
-                                    asChild
                                 >
-                                    <Link href={href}>{label}</Link>
+                                    {label}
                                 </Button>
                             ))}
                         </div>

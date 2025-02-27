@@ -1,7 +1,7 @@
 import { SessionProvider } from 'next-auth/react';
 import { PropsWithChildren } from 'react';
 
-import { CartProvider } from '../cart/cart-context';
+// import { CartProvider } from '../cart/cart-context';
 import { ThemeProvider } from './theme-provider';
 
 export function Providers({ children }: PropsWithChildren) {
@@ -13,7 +13,8 @@ export function Providers({ children }: PropsWithChildren) {
                 enableSystem
                 disableTransitionOnChange
             >
-                <CartProvider>{children}</CartProvider>
+                {children}
+                {/* <CartProvider>{children}</CartProvider> */}
             </ThemeProvider>
         </SessionProvider>
     );

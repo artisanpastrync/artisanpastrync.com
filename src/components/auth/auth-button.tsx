@@ -2,37 +2,17 @@
 
 import { signOut, useSession } from 'next-auth/react';
 
-import { Button, ButtonProps } from '@/components/ui/button';
-import Link from 'next/link';
-import { LogIn, LogOut } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Button } from '@/components/Button';
 
-export type AuthButtonProps = ButtonProps;
-
-export function AuthButton({ className, ...props }: AuthButtonProps) {
+export function AuthButton() {
     const { data: session, status } = useSession();
 
-    if (status === 'loading')
-        return (
-            <Button {...props} disabled className={cn('gap-2', className)}>
-                <LogIn />
-                Sign in
-            </Button>
-        );
+    if (status === 'loading') return <Button disabled>Sign in</Button>;
 
-    if (!session?.user)
-        return (
-            <Button {...props} asChild className={cn('gap-2', className)}>
-                <Link href='/login'>
-                    <LogIn />
-                    Sign in
-                </Link>
-            </Button>
-        );
+    if (!session?.user) return <Button href='/login'>Sign in</Button>;
 
     return (
-        <Button {...props} className={cn('gap-2', className)} onClick={() => signOut()}>
-            <LogOut />
+        <Button variant='inverted' onClick={signOut}>
             Sign Out
         </Button>
     );

@@ -75,7 +75,3 @@ export function getSingleQueryParam(
         return param[getFirst ? 0 : param.length - 1];
     }
 }
-
-export function nameToSlug(name: string): string {
-    return name.toLowerCase().replaceAll(' ', '-');
-}

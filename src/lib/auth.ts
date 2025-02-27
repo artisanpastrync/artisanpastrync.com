@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
-import NextAuth from 'next-auth';
-import type { JWT as _ } from 'next-auth/jwt';
+import NextAuth, { type DefaultSession } from 'next-auth';
 import type { Provider } from 'next-auth/providers';
 import Google from 'next-auth/providers/google';
 
@@ -9,31 +7,13 @@ import { createStripeCustomer, getCustomerByEmail } from '@/services/customer';
 // https://authjs.dev/getting-started/typescript?framework=next-js#module-augmentation
 declare module 'next-auth' {
     /**
-     * The shape of the user object returned in the OAuth providers' `profile` callback,
-     * or the second parameter of the `session` callback, when using a database.
+     * Returned by `auth`, `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
      */
-    interface User {
-        /** The user's stripe customer id. */
-        stripeCustomerId: string;
-        isAdmin: boolean;
-    }
-    /**
-     * The shape of the account object returned in the OAuth providers' `account` callback,
-     * Usually contains information about the provider being used, like OAuth tokens (`access_token`, etc).
-     */
-    interface Account {}
-
-    /**
-     * Returned by `useSession`, `auth`, contains information about the active session.
-     */
-    interface Session {}
-}
-
-declare module 'next-auth/jwt' {
-    /** Returned by the `jwt` callback and `auth`, when using JWT sessions */
-    interface JWT {
-        stripeCustomerId: string;
-        isAdmin: boolean;
+    interface Session {
+        user: {
+            /** The user's stripe customer id. */
+            stripeCustomerId: string;
+        } & DefaultSession['user'];
     }
 }
 
@@ -42,39 +22,23 @@ const providers: Provider[] = [
 ];
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+    // trustHost: process.env.NODE_ENV === 'production',
     providers,
     callbacks: {
-        async jwt(params) {
-            const { token, trigger } = params;
-            if (!trigger || !token?.email) return token;
-
-            console.log('==== JWT ====');
-            console.log(JSON.stringify(params));
-
+        async session({ session }) {
+            if (!session.user || !session.user.email) return session;
             // Find customer associated with user's email address
-            let customer = await getCustomerByEmail(token.email);
+            let customer = await getCustomerByEmail(session.user.email);
             // ...Or create a new customer
             if (!customer) {
                 customer = await createStripeCustomer({
-                    email: token.email,
-                    name: token.name ?? 'Customer',
-                    metadata: { image: token.picture ?? null },
+                    email: session.user.email,
+                    name: session.user.name ?? 'Customer',
+                    metadata: { image: session.user.image ?? null },
                 });
             }
-
-            // todo: update stripe profile each time, as this part of the callback hits on each login
-            // await stripe.customers.update(customer.id, { metadata: {} });
-
-            token.stripeCustomerId = customer.id;
-            token.isAdmin = !!customer.metadata.isAdmin;
-
-            return token;
-        },
-        async session(params) {
-            const { session, token } = params;
-
-            session.user.stripeCustomerId = token.stripeCustomerId;
-            session.user.isAdmin = token.isAdmin;
+            // Assign customer's stripe id to user
+            session.user.stripeCustomerId = customer.id;
 
             return session;
         },
