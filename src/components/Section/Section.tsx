@@ -60,7 +60,7 @@ export const SectionBackground: FC<SectionBackgroundProps> = ({
             ></div>
         );
 
-    return null;
+    return <div className={cn(baseClassNames, 'bg-cover bg-center', className)}></div>;
 };
 
 export interface SectionOverlayProps {
