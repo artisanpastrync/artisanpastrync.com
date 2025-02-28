@@ -1,23 +1,23 @@
 import Image from 'next/image';
 
-import { Section, SectionBackground, SectionContent } from '@/components/Section';
+import { Section } from '@/components/Section';
+import { cn } from '@/lib/utils';
 
-const twoColumnsClassNames = 'grid lg:grid-cols-2 gap-16 items-center justify-items-center';
+const twoColumnsClassNames = 'grid md:grid-cols-2 gap-16 items-center justify-items-center';
+const colors1ClassNames =
+    'bg-primary-100 dark:bg-primary-900 text-primary-900 dark:text-primary-100';
+const colors2ClassNames =
+    'bg-primary-50 dark:bg-primary-950 text-primary-950 dark:text-primary-100';
 
 export default function AboutPage() {
     return (
         <>
-            <Section>
-                <SectionBackground color='primary-50' />
-                <SectionContent className={twoColumnsClassNames}>
+            <Section className={colors1ClassNames}>
+                <Section.Content className={twoColumnsClassNames}>
                     <p>
-                        Artisan Pastry LLC is a small, independent pastry shop proudly owned and
-                        operated by a mother-daughter duo in Wake Forest. We attend monthly
-                        farmers&apos; markets, bringing our delightful treats directly to the
-                        community. Inspired by the absence of quality pastry shops in the Triangle,
-                        we saw a unique opportunity to share our passion for baking here in the
-                        South. Originally from Long Island, NY, where diverse culinary options
-                        abound, we bring a touch of that rich cultural heritage to our new home.
+                        Some of the best memories are made in the kitchen -- mixing, kneading, and
+                        waiting for something wonderful to come out of the oven. At Artisan Pastry,
+                        baking is more than a craft; it&apos;s a tradition that spans generations.
                     </p>
                     <Image
                         src='/images/chiffones.jpg'
@@ -25,11 +25,10 @@ export default function AboutPage() {
                         width='500'
                         height='500'
                     />
-                </SectionContent>
+                </Section.Content>
             </Section>
-            <Section>
-                <SectionBackground color='primary-100' />
-                <SectionContent className={twoColumnsClassNames}>
+            <Section className={colors2ClassNames}>
+                <Section.Content className={twoColumnsClassNames}>
                     <p>
                         Artisan Pastry was born from my great-grandmother&apos;s traditional baking
                         methods, which included a cherished collection of cookie, cake, and pastry
@@ -42,26 +41,43 @@ export default function AboutPage() {
                         alt='Our buttery Peruvian Alfajor cookies filled with dulce de leche'
                         width='500'
                         height='500'
-                        className='lg:-order-1'
+                        className='md:-order-1'
                     />
-                </SectionContent>
+                </Section.Content>
             </Section>
-            <Section>
-                <SectionBackground color='primary-50' />
-                <SectionContent className={twoColumnsClassNames}>
+            <Section className={colors1ClassNames}>
+                <Section.Content className=''>
                     <p>
-                        We take pride in using high-quality, seasonal, and locally sourced
-                        ingredients. Our cookies, cakes, and pastries are made from scratch, using
-                        only whole and real ingredients. Unlike most pastry shops, we stand out for
-                        our commitment to authenticity and quality in every bake.
+                        From delicate cookies to rich, buttery cakes, each bite tells a story. A
+                        story one of home, heritage, and the joy of sharing something truly special.
+                        Whether you&apos;re looking for a treat for yourself or something to bring
+                        to the table, we&apos;re here to bake up something wonderful.
+                    </p>
+                </Section.Content>
+            </Section>
+            <Section className={colors2ClassNames}>
+                <Section.Content className={twoColumnsClassNames}>
+                    <p>
+                        Every pastry we make is crafted from scratch with real, high-quality
+                        ingredients—nothing artificial, just honest flavors. We focus on using the
+                        best ingredients available, ensuring each bake is rich, flavorful, and made
+                        with care.
                     </p>
                     <Image
                         src='/images/budin.jpg'
-                        alt='Our syrupy bread putting with raisins'
+                        alt='Our syrupy bread pudding with raisins'
                         width='500'
                         height='500'
                     />
-                </SectionContent>
+                </Section.Content>
+            </Section>
+            <Section className={colors1ClassNames}>
+                <Section.Content className=''>
+                    <p className='text-center'>
+                        <strong>Welcome to Artisan Pastry.</strong> We hope you love what we create
+                        as much as we love making it!
+                    </p>
+                </Section.Content>
             </Section>
         </>
     );
