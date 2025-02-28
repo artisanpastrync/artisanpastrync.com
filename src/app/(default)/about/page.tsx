@@ -1,7 +1,6 @@
 import Image from 'next/image';
 
 import { Section } from '@/components/Section';
-import { cn } from '@/lib/utils';
 
 const twoColumnsClassNames = 'grid md:grid-cols-2 gap-16 items-center justify-items-center';
 const colors1ClassNames =
