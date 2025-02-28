@@ -1,8 +1,9 @@
+import { Mail } from 'lucide-react';
 import Link from 'next/link';
 
 import { AuthButton } from '@/components/auth/auth-button';
-import { Button } from '@/components/Button';
-// import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { LINKS } from '@/constants/navigation';
+import { Button } from '@/components/ui/button';
 
 export const Footer = () => {
     return (
@@ -12,10 +13,10 @@ export const Footer = () => {
                     <div>
                         <h2 className='text-xl font-bold mb-4'>About Us</h2>
                         <p>
-                            A women-owned, mother-daughter pastry shop in Wake Forest offering
-                            handmade cookies, cakes, and pastries. We use high-quality, seasonal,
-                            and locally sourced ingredients. Find us at local farmers&apos; markets
-                            and enjoy our authentic, delicious treats.
+                            Artisan Pastry is a family-owned bakery in Wake Forest, dedicated to
+                            crafting handmade pastries with real ingredients and timeless recipes.
+                            Every treat is baked with care, tradition, and a love for sharing
+                            something delicious.
                         </p>
                     </div>
 
@@ -27,7 +28,12 @@ export const Footer = () => {
                                 placeholder='Your email'
                                 className='px-4 py-2 mb-2 bg-primary-900 text-primary-50 rounded-md placeholder:text-primary-400'
                             />
-                            <Button type='submit' variant='solid' className='px-4 py-2 rounded-md'>
+                            <Button
+                                type='submit'
+                                variant='default'
+                                className='px-4 py-2 rounded-md gap-2 cursor-pointer'
+                            >
+                                <Mail />
                                 Subscribe
                             </Button>
                         </form>
@@ -37,26 +43,13 @@ export const Footer = () => {
                     <div>
                         <h2 className='text-xl font-bold mb-4'>Quick Links</h2>
                         <ul className='space-y-2'>
-                            <li>
-                                <Link href='/about' className='hover:underline'>
-                                    About Us
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href='/services' className='hover:underline'>
-                                    Services
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href='/contact' className='hover:underline'>
-                                    Contact
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href='/faq' className='hover:underline'>
-                                    FAQ
-                                </Link>
-                            </li>
+                            {LINKS.map(({ href, label }, index) => (
+                                <li key={index}>
+                                    <Button asChild variant='ghost'>
+                                        <Link href={href}>{label}</Link>
+                                    </Button>
+                                </li>
+                            ))}
                         </ul>
                     </div>
 
