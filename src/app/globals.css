@@ -55,20 +55,49 @@
     --radius-sm: calc(var(--radius) - 4px);
 }
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
-    *,
-    ::after,
-    ::before,
-    ::backdrop,
-    ::file-selector-button {
-        border-color: var(--color-gray-200, currentColor);
+    :root {
+        --background: 32 100% 95%;
+        --foreground: 32 5% 0%;
+        --muted: 34 50% 85%;
+        --muted-foreground: 32 5% 35%;
+        --popover: 32 100% 95%;
+        --popover-foreground: 32 100% 0%;
+        --card: 32 50% 90%;
+        --card-foreground: 32 5% 10%;
+        --border: 31.95 30.2% 50%;
+        --input: 32 30% 18%;
+        --primary: 32 69.3% 62.9%;
+        --primary-foreground: 0 0% 0%;
+        --secondary: 32 30% 70%;
+        --secondary-foreground: 0 0% 0%;
+        --accent: 34 50% 75%;
+        --accent-foreground: 34 10% 10%;
+        --destructive: 0 100% 30%;
+        --destructive-foreground: 32 5% 90%;
+        --ring: 32 69.3% 62.9%;
+        --radius: 0.5rem;
+    }
+
+    .dark {
+        --background: 32 50% 5%;
+        --foreground: 32 5% 90%;
+        --muted: -6 30% 15%;
+        --muted-foreground: 32 5% 60%;
+        --popover: 32 50% 5%;
+        --popover-foreground: 32 5% 90%;
+        --card: 32 50% 0%;
+        --card-foreground: 32 5% 90%;
+        --border: 32 30% 18%;
+        --input: 32 30% 18%;
+        --primary: 32 69.3% 62.9%;
+        --primary-foreground: 0 0% 0%;
+        --secondary: 32 30% 10%;
+        --secondary-foreground: 0 0% 100%;
+        --accent: -6 30% 15%;
+        --accent-foreground: 32 5% 90%;
+        --destructive: 0 100% 30%;
+        --destructive-foreground: 32 5% 90%;
+        --ring: 32 69.3% 62.9%;
     }
 }
