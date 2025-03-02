@@ -18,12 +18,14 @@ export default function AboutPage() {
                         waiting for something wonderful to come out of the oven. At Artisan Pastry,
                         baking is more than a craft; it&apos;s a tradition that spans generations.
                     </p>
-                    <Image
-                        src='/images/chiffones.jpg'
-                        alt='Our pillowy chiffon cake'
-                        width='500'
-                        height='500'
-                    />
+                    <div className='relative aspect-square w-full'>
+                        <Image
+                            src='/images/chiffones.jpg'
+                            alt='Our pillowy chiffon cake'
+                            fill
+                            className='object-contain'
+                        />
+                    </div>
                 </Section.Content>
             </Section>
             <Section className={colors2ClassNames}>
@@ -35,13 +37,14 @@ export default function AboutPage() {
                         to open this business with her. Together, we aim to share our delicious
                         pastries with our local communities and beyond.
                     </p>
-                    <Image
-                        src='/images/alfajor.jpg'
-                        alt='Our buttery Peruvian Alfajor cookies filled with dulce de leche'
-                        width='500'
-                        height='500'
-                        className='md:-order-1'
-                    />
+                    <div className='relative aspect-square w-full md:-order-1'>
+                        <Image
+                            src='/images/alfajor.jpg'
+                            alt='Our buttery Peruvian Alfajor cookies filled with dulce de leche'
+                            fill
+                            className='object-contain object-center'
+                        />
+                    </div>
                 </Section.Content>
             </Section>
             <Section className={colors1ClassNames}>
@@ -62,12 +65,14 @@ export default function AboutPage() {
                         best ingredients available, ensuring each bake is rich, flavorful, and made
                         with care.
                     </p>
-                    <Image
-                        src='/images/budin.jpg'
-                        alt='Our syrupy bread pudding with raisins'
-                        width='500'
-                        height='500'
-                    />
+                    <div className='relative aspect-square w-full'>
+                        <Image
+                            src='/images/budin.jpg'
+                            alt='Our syrupy bread pudding with raisins'
+                            fill
+                            className='object-contain'
+                        />
+                    </div>
                 </Section.Content>
             </Section>
             <Section className={colors1ClassNames}>
