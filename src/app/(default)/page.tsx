@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { Section } from '@/components/Section';
 import { Button } from '@/components/ui/button';
+import { ShoppingBasket, UsersRound } from 'lucide-react';
 
 const twoColumnsClassNames = 'grid md:grid-cols-2 gap-16 items-center justify-items-center';
 const colors1ClassNames = 'bg-primary-50 dark:bg-primary-900 text-primary-900 dark:text-primary-50';
@@ -17,11 +18,17 @@ export default function Home() {
                     <h1 className='text-5xl font-bold'>Fine Baked Goods from Wake Forest, NC</h1>
                     <p className='text-2xl'>Taste the difference of our family&apos;s recipes</p>
                     <div className='flex flex-col sm:flex-row gap-4 '>
-                        <Button variant='default' asChild>
-                            <Link href='/about'>About Us</Link>
+                        <Button variant='default' asChild className='gap-2'>
+                            <Link href='/about'>
+                                <UsersRound />
+                                About Us
+                            </Link>
                         </Button>
-                        <Button variant='secondary' asChild>
-                            <Link href='/products'>Order Now!</Link>
+                        <Button variant='secondary' asChild className='gap-2'>
+                            <Link href='/products'>
+                                <ShoppingBasket />
+                                Order Now!
+                            </Link>
                         </Button>
                     </div>
                 </Section.Content>

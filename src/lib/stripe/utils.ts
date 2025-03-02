@@ -1,3 +1,5 @@
+import Stripe from 'stripe';
+
 // https://github.com/vercel/next.js/blob/canary/examples/with-stripe-typescript/utils/stripe-helpers.ts
 export function formatStripeAmountForDisplay(
     amount?: number | null,
@@ -28,3 +30,12 @@ export function formatAmountForStripe(amount: number, currency: string): number 
     }
     return zeroDecimalCurrency ? amount : Math.round(amount * 100);
 }
+
+export const formatPrices = (prices: Stripe.Price[]): string => {
+    const minPrice = Math.min(...prices.map((price) => (price?.unit_amount ?? 0) / 100));
+    const maxPrice = Math.max(...prices.map((price) => (price?.unit_amount ?? 0) / 100));
+
+    return minPrice === maxPrice
+        ? `$${minPrice}`
+        : `$${Math.round(minPrice)} - $${Math.round(maxPrice)}`;
+};
