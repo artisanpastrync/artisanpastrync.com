@@ -32,10 +32,10 @@ export function formatAmountForStripe(amount: number, currency: string): number 
 }
 
 export const formatPrices = (prices: Stripe.Price[]): string => {
-    const minPrice = Math.min(...prices.map((price) => (price?.unit_amount ?? 0) / 100));
-    const maxPrice = Math.max(...prices.map((price) => (price?.unit_amount ?? 0) / 100));
+    const minPrice = Math.min(...prices.map((price) => price?.unit_amount ?? 0));
+    const maxPrice = Math.max(...prices.map((price) => price?.unit_amount ?? 0));
 
     return minPrice === maxPrice
-        ? `$${minPrice}`
-        : `$${Math.round(minPrice)} - $${Math.round(maxPrice)}`;
+        ? `${formatStripeAmountForDisplay(minPrice)}`
+        : `${formatStripeAmountForDisplay(minPrice)} - ${formatStripeAmountForDisplay(maxPrice)}`;
 };

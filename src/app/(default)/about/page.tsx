@@ -4,9 +4,8 @@ import { Section } from '@/components/Section';
 
 const twoColumnsClassNames = 'grid md:grid-cols-2 gap-16 items-center justify-items-center';
 const colors1ClassNames =
-    'bg-primary-100 dark:bg-primary-900 text-primary-900 dark:text-primary-100';
-const colors2ClassNames =
-    'bg-primary-50 dark:bg-primary-950 text-primary-950 dark:text-primary-100';
+    'bg-primary-100 dark:bg-primary-900 text-primary-900 dark:text-primary-50';
+const colors2ClassNames = 'bg-primary-50 dark:bg-primary-950 text-primary-950 dark:text-primary-50';
 
 export default function AboutPage() {
     return (
@@ -48,7 +47,7 @@ export default function AboutPage() {
                 </Section.Content>
             </Section>
             <Section className={colors1ClassNames}>
-                <Section.Content className=''>
+                <Section.Content className='md:w-1/2 m-auto'>
                     <p>
                         From delicate cookies to rich, buttery cakes, each bite tells a story. A
                         story one of home, heritage, and the joy of sharing something truly special.

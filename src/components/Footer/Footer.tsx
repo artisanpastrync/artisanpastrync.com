@@ -31,7 +31,7 @@ export const Footer = () => {
                             <Button
                                 type='submit'
                                 variant='default'
-                                className='px-4 py-2 rounded-md gap-2 cursor-pointer'
+                                className='px-4 py-2 rounded-md gap-2'
                             >
                                 <Mail />
                                 Subscribe

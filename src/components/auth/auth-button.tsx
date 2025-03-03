@@ -22,7 +22,7 @@ export function AuthButton({ className, ...props }: AuthButtonProps) {
 
     if (!session?.user)
         return (
-            <Button {...props} asChild className={cn('gap-2 cursor-pointer', className)}>
+            <Button {...props} asChild className={cn('gap-2', className)}>
                 <Link href='/login'>
                     <LogIn />
                     Sign in
@@ -31,11 +31,7 @@ export function AuthButton({ className, ...props }: AuthButtonProps) {
         );
 
     return (
-        <Button
-            {...props}
-            className={cn('gap-2 cursor-pointer', className)}
-            onClick={() => signOut()}
-        >
+        <Button {...props} className={cn('gap-2', className)} onClick={() => signOut()}>
             <LogOut />
             Sign Out
         </Button>

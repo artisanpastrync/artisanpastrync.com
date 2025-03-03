@@ -4,7 +4,7 @@ import Stripe from 'stripe';
 
 import { formatPrices } from '@/lib/stripe/utils';
 import { nameToSlug } from '@/lib/utils';
-import { getAllProductPrices } from '@/services/product';
+import { getAllProductVariants } from '@/services/product';
 
 export const ProductList = ({ products }: { products: Stripe.Product[] }) => {
     return (
@@ -19,22 +19,22 @@ export const ProductList = ({ products }: { products: Stripe.Product[] }) => {
 };
 
 export const ProductCard = async ({ product }: { product: Stripe.Product }) => {
-    const prices = await getAllProductPrices(product.id);
+    const prices = await getAllProductVariants(product.id);
 
     return (
         <Link href={`/products/${nameToSlug(product.name)}`}>
-            <article className='group rounded-lg bg-primary-100 dark:bg-primary-950 text-primary-950 dark:text-primary-100 overflow-hidden'>
+            <article className='group rounded-lg bg-primary-100 dark:bg-primary-950 text-primary-950 dark:text-primary-50 overflow-hidden'>
                 {product.images[0] && (
                     <div className='relative aspect-square w-full overflow-hidden'>
                         <Image
-                            className='hover-perspective w-full h-full object-cover object-center transition-opacity group-hover:opacity-75 p-4 pb-0'
+                            className='hover-perspective w-full h-full object-cover object-center transition-opacity group-hover:opacity-75 p-4'
                             src={product.images[0]}
                             fill
                             alt={product.name}
                         />
                     </div>
                 )}
-                <div className='p-4 flex flex-row justify-between items-center gap-2'>
+                <div className='p-4 pt-0 flex flex-row justify-between items-center gap-2'>
                     <h2 className='text-xl font-medium'>{product.name}</h2>
                     <p>{formatPrices(prices)}</p>
                 </div>

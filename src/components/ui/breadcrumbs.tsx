@@ -1,8 +1,10 @@
-import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
-import { cn } from '@/lib/utils';
 import { ChevronRightIcon } from 'lucide-react';
 import Link, { type LinkProps } from 'next/link';
+import * as React from 'react';
+
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 const Breadcrumb = React.forwardRef<
     HTMLElement,
@@ -16,10 +18,7 @@ const BreadcrumbList = React.forwardRef<HTMLOListElement, React.ComponentPropsWi
     ({ className, ...props }, ref) => (
         <ol
             ref={ref}
-            className={cn(
-                'text-muted-foreground flex flex-wrap items-center gap-1.5 break-words text-sm sm:gap-2.5',
-                className
-            )}
+            className={cn('flex flex-wrap items-center gap-2 break-words text-sm ', className)}
             {...props}
         />
     )
@@ -46,7 +45,7 @@ const BreadcrumbLink = React.forwardRef<
     return (
         <Comp
             ref={ref}
-            className={cn('hover:text-foreground transition-colors', className)}
+            className={cn('hover:opacity-75 transition-opacity', className)}
             {...props}
         />
     );
@@ -86,34 +85,24 @@ interface BreadcrumbsProps {
 
 function Breadcrumbs({ items, className }: BreadcrumbsProps) {
     return (
-        <Breadcrumb className={className}>
-            <BreadcrumbList className='flex items-center gap-1.5 overflow-x-auto whitespace-nowrap text-xs md:text-base/[18px]'>
-                {Object.entries(items).map(([title, href], idx) => {
-                    const isLast = idx + 1 === Object.keys(items).length;
+        <BreadcrumbList className={cn`flex items-center whitespace-nowrap gap-0 ${className}`}>
+            {Object.entries(items).map(([title, href], idx) => {
+                const isLast = idx + 1 === Object.keys(items).length;
 
-                    return (
-                        <React.Fragment key={title + href}>
-                            <BreadcrumbItem>
-                                <BreadcrumbLink
-                                    prefetch={false}
-                                    aria-current={isLast ? 'page' : undefined}
-                                    className={cn(
-                                        'text-sm text-neutral-500 hover:underline',
-                                        isLast && 'font-medium underline'
-                                    )}
-                                    href={href}
-                                >
-                                    {title}
-                                </BreadcrumbLink>
-                            </BreadcrumbItem>
-                            {!isLast && (
-                                <BreadcrumbSeparator className='text-transparent [&>svg]:size-4 [&>svg]:fill-black' />
-                            )}
-                        </React.Fragment>
-                    );
-                })}
-            </BreadcrumbList>
-        </Breadcrumb>
+                return (
+                    <React.Fragment key={title + href}>
+                        <Button
+                            asChild
+                            variant='link'
+                            className={cn`text-current font-light ${isLast && 'font-bold'}`}
+                        >
+                            <Link href={href}>{title}</Link>
+                        </Button>
+                        {!isLast && <BreadcrumbSeparator className='text-primary' />}
+                    </React.Fragment>
+                );
+            })}
+        </BreadcrumbList>
     );
 }
 

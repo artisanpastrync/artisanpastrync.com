@@ -23,7 +23,7 @@ export function ThemeToggle({ className, ...props }: ThemeToggleProps) {
             variant='default'
             size='icon'
             {...props}
-            className={cn('cursor-pointer', className)}
+            className={className}
             onClick={toggleTheme}
         >
             <Sun className='hidden dark:block' />
