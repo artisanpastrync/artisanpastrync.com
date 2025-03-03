@@ -1,5 +1,12 @@
 import Image from 'next/image';
-import { CSSProperties, FC, HTMLAttributes, ReactNode, VideoHTMLAttributes } from 'react';
+import {
+    ComponentPropsWithoutRef,
+    CSSProperties,
+    ElementType,
+    FC,
+    ReactNode,
+    VideoHTMLAttributes,
+} from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -104,28 +111,26 @@ export const SectionContent: FC<SectionContentProps> = ({ className, children })
     );
 };
 
-export interface SectionProps extends HTMLAttributes<HTMLDivElement> {
+export interface SectionProps<T extends ElementType> {
+    as?: T;
     className?: string;
     style?: CSSProperties;
     children?: ReactNode;
 }
 
-type SectionSubComponents = {
-    Background: typeof SectionBackground;
-    Overlay: typeof SectionOverlay;
-    Content: typeof SectionContent;
-};
-
-export const Section: FC<SectionProps> & SectionSubComponents = ({
+export const Section = <T extends ElementType = 'section'>({
     className,
     style,
     children,
+    as,
     ...rest
-}) => {
+}: SectionProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof SectionProps<T>>) => {
+    const Component = as || 'section';
+
     return (
-        <section className={cn`section relative ${className}`} style={style} {...rest}>
+        <Component className={cn`section relative ${className}`} style={style} {...rest}>
             {children}
-        </section>
+        </Component>
     );
 };
 
