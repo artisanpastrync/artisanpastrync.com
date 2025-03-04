@@ -68,18 +68,16 @@ export async function findOrCreateCustomerByEmail(email: string): Promise<Stripe
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface CustomerProfile {}
 
-function extractProfileFromCustomer(customer: Stripe.Customer): CustomerProfile {
-    return JSON.parse(customer.metadata.profile ?? '{}');
+function extractProfileFromCustomer(customer?: Stripe.Customer): CustomerProfile {
+    return JSON.parse(customer?.metadata.profile ?? '{}');
 }
 
-export async function getCustomerProfile(customer: Stripe.Customer): Promise<CustomerProfile> {
+export async function getCustomerProfile(customer?: Stripe.Customer): Promise<CustomerProfile> {
     return extractProfileFromCustomer(customer);
 }
 
 export async function getUserProfile(): Promise<CustomerProfile> {
     const customer = await getUserStripeCustomer();
-
-    if (!customer) throw new Error('Not signed in');
 
     return getCustomerProfile(customer);
 }

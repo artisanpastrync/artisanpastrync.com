@@ -101,3 +101,5 @@ function makeBreadcrumbs(product: Stripe.Product) {
         [product.name]: '',
     };
 }
+
+// todo: variant descriptions, images, etc
