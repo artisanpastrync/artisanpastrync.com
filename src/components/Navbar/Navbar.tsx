@@ -11,8 +11,8 @@ import { Button, ButtonProps } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 import { LINKS, NavLink } from '@/constants/navigation';
+import { CartView } from '../cart/cart-view';
 import './navbar.css';
-import { CartButton } from '../cart/cart-button';
 
 export type NavButton = Pick<ButtonProps, 'onClick' | 'variant' | 'className'> & {
     label: string;
@@ -90,7 +90,7 @@ export const Navbar: FC<NavbarProps> = ({ className, links = LINKS, enableScroll
                     <div className='hidden lg:flex space-x-4'>
                         <ThemeToggle variant='default' className={buttonClassNames} />
                         <AuthButton variant='default' className={buttonClassNames} />
-                        <CartButton />
+                        <CartView />
                     </div>
                     <div className='lg:hidden flex'>
                         <button
